@@ -13,44 +13,41 @@
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
   a{color:var(--teal-d)}
-  /* Header */
   header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:26px 34px 30px}
   .eyebrow{color:#5fd3d3;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
   .head-row{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
   h1{margin:0 0 8px;font-size:30px;font-weight:800;letter-spacing:-.01em}
-  .subtitle{color:#c4d4e2;max-width:820px;font-size:14.5px;margin:0}
+  .subtitle{color:#c4d4e2;max-width:860px;font-size:14.5px;margin:0}
   .portal-btn{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);border:1px solid rgba(95,211,211,.5);border-radius:12px;padding:12px 18px;color:#fff;text-decoration:none;cursor:pointer;transition:.15s}
   .portal-btn:hover{background:rgba(95,211,211,.14)}
   .portal-btn .play{width:34px;height:34px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:14px}
   .portal-btn .pt{font-weight:700;font-size:14px;display:block}
   .portal-btn .ps{color:#5fd3d3;font-size:10.5px;font-weight:700;letter-spacing:.12em}
-  /* Concept nav */
   .concept-nav{background:var(--navy);border-top:1px solid rgba(255,255,255,.08);display:flex;gap:6px;padding:0 30px;overflow-x:auto}
   .concept-tab{background:none;border:none;color:#9fb4c6;font-size:13.5px;font-weight:600;padding:14px 18px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:8px}
   .concept-tab .num{background:rgba(255,255,255,.12);color:#cfe0ec;font-size:11px;font-weight:700;border-radius:5px;padding:2px 7px}
   .concept-tab.active{color:#fff;border-bottom-color:var(--teal)}
   .concept-tab.active .num{background:var(--teal);color:#fff}
   .concept-tab.soon{opacity:.55;font-style:italic}
-  /* Banner */
   .internal{background:var(--amber-bg);border-left:4px solid var(--amber-line);padding:12px 30px;font-size:13px}
   .internal b{color:#7a5b00}
   .internal .sub{color:#8a6d1a;font-size:12px;margin-top:2px}
-  /* Sub tabs */
   .subnav{background:#e9eef3;display:flex;gap:4px;padding:0 26px;border-bottom:1px solid var(--line);overflow-x:auto}
   .subtab{background:none;border:none;color:var(--muted);font-weight:600;font-size:13.5px;padding:13px 16px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:8px}
   .subtab .n{background:#cfd8e0;color:#3e5060;border-radius:5px;font-size:11px;padding:1px 7px;font-weight:700}
   .subtab.active{color:var(--navy);border-bottom-color:var(--teal);background:#f4f7f9}
   .subtab.active .n{background:var(--teal);color:#fff}
-  /* Content */
   main{padding:26px 34px 60px;max-width:1240px;margin:0 auto}
   .kicker{display:inline-block;background:var(--teal);color:#fff;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:14px}
   h2.section{font-size:22px;margin:2px 0 6px;font-weight:800}
   h2.section .n{color:var(--teal)}
-  .lead{color:var(--muted);max-width:900px;margin:0 0 22px;font-size:14.5px}
+  .lead{color:var(--muted);max-width:920px;margin:0 0 22px;font-size:14.5px}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
   .card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:10px;padding:18px 18px 20px;box-shadow:0 1px 3px rgba(16,42,67,.05)}
   .seg-label{color:var(--teal-d);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
   .card h3{margin:5px 0 8px;font-size:18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .card h4{margin:2px 0 8px;font-size:16px}
   .pill{background:var(--navy);color:#dbe8f2;font-size:10.5px;font-weight:700;border-radius:20px;padding:3px 9px;white-space:nowrap}
   .pill.teal{background:var(--need);color:var(--teal-d)}
   .stage{color:var(--muted);font-style:italic;font-size:13px;margin:0 0 12px}
@@ -75,6 +72,10 @@
   .kpi .b{background:#f7fafb;border:1px solid var(--line);border-radius:8px;padding:12px}
   .kpi .b .v{font-size:20px;font-weight:800;color:var(--navy)}
   .kpi .b .l{font-size:12px;color:var(--muted)}
+  table.cmp{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+  table.cmp th{background:#eef3f6;color:var(--navy)}
+  table.cmp td:first-child{font-weight:600;color:var(--teal-d)}
   .soonwrap{text-align:center;color:var(--muted);padding:70px 20px}
   .soonwrap .big{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px}
   footer{border-top:1px solid var(--line);padding:16px 34px;color:#8fa0b0;font-size:12px;background:#fff}
@@ -87,7 +88,7 @@
   <div class="head-row">
     <div>
       <h1>Simplicity Concepts Leveraging AI</h1>
-      <p class="subtitle">A portfolio of AI-leveraged concepts for Simplicity. Each concept is a self-contained workspace built out one tab at a time. <b>Concept 01 — Client Acquisition</b> is the working intelligence behind the "we'll fill your calendar" recruiting pitch.</p>
+      <p class="subtitle">A portfolio of AI-leveraged concepts for Simplicity, each a self-contained workspace built out one tab at a time. <b>Concept 01 — Client Acquisition</b> is the recruiting-side intelligence ("we'll fill your calendar"); <b>Concept 02 — Client Center</b> is the client-facing "One Simplicity" experience.</p>
     </div>
     <a class="portal-btn" onclick="showSub('lgmax');return false;" href="#">
       <span class="play">▶</span>
@@ -96,10 +97,9 @@
   </div>
 </header>
 
-<!-- CONCEPT-LEVEL NAV -->
 <nav class="concept-nav">
   <button class="concept-tab active" data-concept="c1" onclick="showConcept('c1')"><span class="num">01</span> Client Acquisition</button>
-  <button class="concept-tab soon" data-concept="c2" onclick="showConcept('c2')"><span class="num">02</span> Concept 02 — TBD</button>
+  <button class="concept-tab" data-concept="c2" onclick="showConcept('c2')"><span class="num">02</span> Client Center</button>
   <button class="concept-tab soon" data-concept="c3" onclick="showConcept('c3')"><span class="num">03</span> Concept 03 — TBD</button>
 </nav>
 
@@ -116,13 +116,11 @@
     <button class="subtab" data-sub="lgmax" onclick="showSub('lgmax')"><span class="n">3</span> Lead Gen Max</button>
   </div>
 
-  <!-- SUB TAB 1 -->
   <main id="fit" class="subpanel">
     <span class="kicker">Tab 1 · Demand Side</span>
     <h2 class="section"><span class="n">01</span> · The End Clients — five segments by wealth tier × life stage</h2>
     <p class="lead">The U.S. household base sorts cleanly into five buying segments. Each has a distinct life stage, income/asset band, and a dominant financial worry — which determines the product that fits, and therefore the appointment an agent most wants. Household-share figures are approximate industry benchmarks.</p>
     <div class="grid">
-
       <div class="card">
         <div class="seg-label">Segment 1</div>
         <h3>Emerging &amp; Young Families <span class="pill">≈ largest by count</span></h3>
@@ -133,7 +131,6 @@
         <div class="row"><span class="k">Profile</span><span>~76% homeowners, ~64% married, mostly full-time; most under-insured cohort</span></div>
         <div class="need"><div class="nl">Dominant need</div><p>Income replacement &amp; mortgage/family protection at a low monthly cost. Simple, fast → term / simplified-issue life, LifeLink D2C.</p></div>
       </div>
-
       <div class="card">
         <div class="seg-label">Segment 2</div>
         <h3>Mass-Affluent Accumulators <span class="pill">≈ 19–26% of HH</span></h3>
@@ -144,7 +141,6 @@
         <div class="row"><span class="k">Profile</span><span>Often maxed 401(k)/IRA; financially engaged; want tax diversification</span></div>
         <div class="need"><div class="nl">Dominant need</div><p>Tax-advantaged accumulation beyond qualified plans + protecting their #1 asset (income) → IUL, accumulation life, annuities, DI.</p></div>
       </div>
-
       <div class="card">
         <div class="seg-label">Segment 3</div>
         <h3>Affluent Pre-Retirees <span class="pill teal">core annuity buyer</span></h3>
@@ -155,7 +151,6 @@
         <div class="row"><span class="k">Profile</span><span>Shifting from growth to protection; anxious about sequencing &amp; longevity</span></div>
         <div class="need"><div class="nl">Dominant need</div><p>Lock in guaranteed future income, hedge market/longevity risk, plan for care costs &amp; taxes → FIAs, RILAs, asset-based LTC.</p></div>
       </div>
-
       <div class="card">
         <div class="seg-label">Segment 4</div>
         <h3>In-Retirement Income &amp; Legacy <span class="pill">decumulation</span></h3>
@@ -166,7 +161,6 @@
         <div class="row"><span class="k">Profile</span><span>Focused on not outliving money, RMD taxes, care costs, heirs</span></div>
         <div class="need"><div class="nl">Dominant need</div><p>Reliable lifetime income + tax-efficient withdrawals + LTC + legacy → income/SPIA annuities, asset-based LTC, life for legacy, Wealth/RIA management.</p></div>
       </div>
-
       <div class="card">
         <div class="seg-label">Segment 5</div>
         <h3>HNW &amp; Business Owners <span class="pill teal">advanced planning</span></h3>
@@ -177,16 +171,13 @@
         <div class="row"><span class="k">Profile</span><span>~12M U.S. households earn &gt;$200k and ~90% under-save for retirement; want tax mitigation &amp; wealth transfer</span></div>
         <div class="need"><div class="nl">Dominant need</div><p>Advanced planning — tax mitigation, wealth transfer, business/key-person benefits → Kai-Zen®, premium-financed life, estate &amp; succession planning, Wealth.</p></div>
       </div>
-
     </div>
   </main>
 
-  <!-- SUB TAB 2 -->
   <main id="current" class="subpanel hide">
     <span class="kicker">Tab 2 · Supply Side — Today</span>
     <h2 class="section"><span class="n">02</span> · Current Lead Gen — how Simplicity fills the calendar today</h2>
     <p class="lead">The engine that turns the recruiting promise into booked appointments right now, built primarily on <b>Lone Beacon</b> (acquired 2023) — a full-service marketing firm targeting the 50+ / pre-retiree demographic — plus turnkey workshops and the enablement stack.</p>
-
     <div class="two">
       <div class="panelbox">
         <h3>The lead-gen machine (Lone Beacon)</h3>
@@ -207,22 +198,17 @@
         </ul>
       </div>
     </div>
-
     <div class="panelbox">
       <h3>Economics &amp; the ceiling (why "Max")</h3>
       <p style="margin:0 0 8px;font-size:13.6px">Advisors buy marketing packages from <b>~$250/mo</b> (website) up to <b>~$20,000/mo</b> full retainer. It works — but lead volume is tied to ad spend and seminar cadence, cost-per-appointment is high, and the ad markets are competitive. That ceiling is exactly what <b>Lead Gen Max</b> is designed to break.</p>
-      <div>
-        <span class="tag">Rented leads</span><span class="tag">Spend-linked volume</span><span class="tag">High cost-per-appt</span><span class="tag">Seminar-cadence bound</span>
-      </div>
+      <div><span class="tag">Rented leads</span><span class="tag">Spend-linked volume</span><span class="tag">High cost-per-appt</span><span class="tag">Seminar-cadence bound</span></div>
     </div>
   </main>
 
-  <!-- SUB TAB 3 -->
   <main id="lgmax" class="subpanel hide">
     <span class="kicker">Tab 3 · The End Game</span>
     <h2 class="section"><span class="n">03</span> · Lead Gen Max — an owned, AI-leveraged appointment engine</h2>
     <p class="lead">Instead of renting leads, <b>manufacture</b> qualified appointments at low marginal cost: source public/business data on newly-liquid, high-intent prospects, enrich it, run AI-personalized multi-touch outreach, and distribute booked appointments to advisors — with cost limited to third-party subscriptions (in-house build, ~$0 dev).</p>
-
     <div class="panelbox">
       <h3>The pipeline</h3>
       <div class="flow">
@@ -240,7 +226,6 @@
         <li><b>Distribute</b> — two-stage assignment of booked appointments to the right advisor.</li>
       </ul>
     </div>
-
     <div class="two">
       <div class="panelbox">
         <h3>Phased rollout</h3>
@@ -265,16 +250,169 @@
   </main>
 </section>
 
-<!-- ================= CONCEPT 02 / 03 placeholders ================= -->
+<!-- ================= CONCEPT 02 · CLIENT CENTER (SCC) ================= -->
 <section id="c2" class="concept-panel hide">
-  <div class="soonwrap"><div class="big">Concept 02 — to be defined</div><p>A slot in the "Simplicity Concepts Leveraging AI" portfolio. Add the next AI concept here — same pattern: its own tabs, its own build-out.</p></div>
+  <div class="internal">
+    🔒 <b>INTERNAL — NOT COMPLIANCE-REVIEWED — NOT FOR OUTBOUND USE.</b>
+    <div class="sub">Concept &amp; product design synthesized from internal Simplicity Client Center (SCC) decks &amp; docs (Dec 2025–Jan 2026). Conceptual — not yet built. Last updated 2026-07-24.</div>
+  </div>
+
+  <div class="subnav">
+    <button class="subtab active" data-sub="cc-vision" onclick="showSub2('cc-vision')"><span class="n">1</span> Vision &amp; Value</button>
+    <button class="subtab" data-sub="cc-journey" onclick="showSub2('cc-journey')"><span class="n">2</span> Client Journey</button>
+    <button class="subtab" data-sub="cc-features" onclick="showSub2('cc-features')"><span class="n">3</span> Features</button>
+    <button class="subtab" data-sub="cc-ai" onclick="showSub2('cc-ai')"><span class="n">4</span> AI Engine &amp; Agent Safeguards</button>
+  </div>
+
+  <main id="cc-vision" class="subpanel">
+    <span class="kicker">Concept 02 · Client-Facing</span>
+    <h2 class="section"><span class="n">01</span> · The Simplicity Client Center (SCC) — the unified digital home for every client</h2>
+    <p class="lead">The client-facing counterpart to Client Acquisition. SCC is the AI-driven <b>Intelligence Hub</b> that unifies every Simplicity capability into a single, intelligent, proactive "One Simplicity" experience — the digital bridge connecting a client's financial future to the collective power of Simplicity Group and its agents.</p>
+    <div class="grid3">
+      <div class="card">
+        <div class="seg-label">Pillar 1</div>
+        <h4>One Simplicity Experience</h4>
+        <p style="font-size:13.4px;margin:0">Replaces disparate client views across all affiliates with a single, intuitive platform. Centralizes the brand and <b>accelerates M&amp;A value capture</b>.</p>
+      </div>
+      <div class="card">
+        <div class="seg-label">Pillar 2</div>
+        <h4>Intelligent Financial Profiling</h4>
+        <p style="font-size:13.4px;margin:0">AI-driven onboarding understands each client's needs, goals, and full financial position — not just account data. <b>Drives organic growth</b> by surfacing cross-sell opportunities.</p>
+      </div>
+      <div class="card">
+        <div class="seg-label">Pillar 3</div>
+        <h4>Holistic Access</h4>
+        <p style="font-size:13.4px;margin:0">Personalized visibility &amp; education across the <b>Six Fundamental Considerations</b> — Longevity, Liquidity, Inflation, Market, Mortality, Taxes.</p>
+      </div>
+    </div>
+
+    <div class="two" style="margin-top:18px">
+      <div class="panelbox">
+        <h3>Why it matters — the strategic case</h3>
+        <ul class="clean">
+          <li><b>Brand centralization</b> — one "One Simplicity" home regardless of which affiliate the client started with.</li>
+          <li><b>M&amp;A value capture</b> — every acquired book plugs into a single client experience.</li>
+          <li><b>Organic growth</b> — the profile + AI engine continuously surface cross-sell/gap opportunities.</li>
+          <li><b>Agent as revenue driver</b> — client activity flows straight back into the Agent Center pipeline.</li>
+        </ul>
+      </div>
+      <div class="panelbox">
+        <h3>Meeting the 2026 market shift</h3>
+        <p style="margin:0 0 6px;font-size:13.4px">By 2026 mobile is the #1 channel for investing. A "learn, enroll, service" app moves Simplicity from <b>legacy provider → Digital Destination</b>. Competitive landscape: <b>none</b> offer all-in-one intelligence + education + enrollment + servicing + agent contact.</p>
+        <table class="cmp">
+          <tr><th>Feature</th><th>Traditional (Boomer/Gen X)</th><th>Future (Millennial/Gen Z)</th></tr>
+          <tr><td>Channel</td><td>Phone &amp; branches</td><td>Mobile-first, always-on</td></tr>
+          <tr><td>Comms</td><td>Periodic reviews</td><td>Push notifications &amp; "stories"</td></tr>
+          <tr><td>Discovery</td><td>Agent-led</td><td>AI-curated &amp; social-led</td></tr>
+          <tr><td>Advisor role</td><td>Sole gatekeeper</td><td>Collaborative expert via AI</td></tr>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <main id="cc-journey" class="subpanel hide">
+    <span class="kicker">Concept 02 · The Flow</span>
+    <h2 class="section"><span class="n">02</span> · Client Journey — from landing page to living dashboard</h2>
+    <div class="flow">
+      <span class="step">Landing page</span><span class="arr">→</span>
+      <span class="step">Onboarding</span><span class="arr">→</span>
+      <span class="step">Registration</span><span class="arr">→</span>
+      <span class="step">Financial Profile</span><span class="arr">→</span>
+      <span class="step">Home Dashboard</span>
+    </div>
+    <div class="two">
+      <div class="panelbox">
+        <h3>1 · Landing page (public "One Simplicity" portal)</h3>
+        <p style="font-size:13.4px;margin:0 0 6px">Hero: <em>"Your Financial Future, Centralized."</em> A single secure home for protection + wealth planning, regardless of originating affiliate. Optimized around one CTA — <b>"Create Your Free Account."</b></p>
+        <div><span class="tag">See Everything in One Place</span><span class="tag">Personalized Education</span><span class="tag">Connect to Expertise</span></div>
+      </div>
+      <div class="panelbox">
+        <h3>2 · Onboarding — two scenarios</h3>
+        <ul class="clean">
+          <li><b>Scenario A — Open market (self-serve):</b> anyone can create an account; Simplicity admin reviews unassigned clients and <b>assigns an agent</b> by profile/needs (alerts both sides).</li>
+          <li><b>Scenario B — Agent direct invite:</b> agent sends a personalized SMS + email invite from the Agent Center; the unique link <b>ties the client to that agent</b> on registration. Agent Links capture the agent ID from the URL automatically.</li>
+        </ul>
+      </div>
+      <div class="panelbox">
+        <h3>3 · Registration</h3>
+        <p style="font-size:13.4px;margin:0">Name, email, phone → password → <b>OTP</b> verification. Clients arriving via invite/link are auto-tied to their agent. Immediately prompted to complete "My Financial Profile."</p>
+      </div>
+      <div class="panelbox">
+        <h3>4 · My Financial Profile (fuels the AI)</h3>
+        <p style="font-size:13.4px;margin:0 0 6px">Multi-step module capturing goals, assets/liabilities, existing coverage, risk tolerance, DOB, family — the "blueprint" for hyper-personalization.</p>
+        <div><span class="tag">Core goals</span><span class="tag">Income &amp; net worth</span><span class="tag">Investable assets</span><span class="tag">Existing coverage</span><span class="tag">Risk tolerance</span><span class="tag">DOB &amp; family</span></div>
+      </div>
+    </div>
+    <div class="panelbox">
+      <h3>5 · Home Dashboard — the "at-a-glance" financial life</h3>
+      <ul class="clean">
+        <li><b>My Financial Wellness View</b> — progress bars for goals, "Estimated Retirement Income," and a <b>Protection Score</b>.</li>
+        <li><b>Suggested Solutions / Action Center</b> — AI recommendations, gap alerts, and best-fit experts from the profile.</li>
+        <li><b>News &amp; Notes</b> — AI-curated news/market updates filtered through the client's specific goals &amp; products.</li>
+        <li><b>Persistent My Agent sidebar</b> — assigned agent's photo, credentials, contact + one-click chat; personalized welcome (name, location weather).</li>
+      </ul>
+    </div>
+  </main>
+
+  <main id="cc-features" class="subpanel hide">
+    <span class="kicker">Concept 02 · The Modules</span>
+    <h2 class="section"><span class="n">03</span> · Features — everything happens inside the portal</h2>
+    <p class="lead">Left-hand nav: <b>Home · My Enrollments · Servicing · Simplicity Solutions · My Account</b>, with a persistent Agent sidebar. The client never has to leave to learn, enroll, or service.</p>
+    <div class="grid">
+      <div class="card"><div class="seg-label">Intelligence</div><h4>Action / Solution Center</h4><p style="font-size:13.2px;margin:0">Financial Health Snapshot (ring chart, "On Track"), Gap Alerts (e.g. under-protected → Term Life), Opportunity Suggestions (e.g. Wealth Management), and Targeted Education.</p></div>
+      <div class="card"><div class="seg-label">Enroll</div><h4>Application Center</h4><p style="font-size:13.2px;margin:0">"2 Active Applications" quick-access; resume in-progress enrollments; full e-application + e-signature handled in-portal.</p></div>
+      <div class="card"><div class="seg-label">Manage</div><h4>Servicing Center</h4><p style="font-size:13.2px;margin:0">Consolidated view of every in-force policy across carriers/partners — details, documents, performance, beneficiary changes, fund reallocations.</p></div>
+      <div class="card"><div class="seg-label">Discover</div><h4>Simplicity Solutions catalog</h4><p style="font-size:13.2px;margin:0">Full catalog (life, annuities, wealth) AI-filtered to the client's profile &amp; goals, each with an "Enroll / Start Application" CTA.</p></div>
+      <div class="card"><div class="seg-label">Support</div><h4>AI Simplicity Agent</h4><p style="font-size:13.2px;margin:0">24/7 concierge — expert on all Simplicity offerings, aware of the client's profile/goals/products. Future phase: infused with the assigned human agent's "brain" &amp; personality.</p></div>
+      <div class="card"><div class="seg-label">Educate</div><h4>Education Center (CMS)</h4><p style="font-size:13.2px;margin:0">AI-curated articles/newsletters/marketing matched to goals (Annuities in Retirement, IUL Benefits, Market Volatility). The "One Simplicity" CMS home.</p></div>
+      <div class="card"><div class="seg-label">Connect</div><h4>Contact Your Agent</h4><p style="font-size:13.2px;margin:0">Agent contact info, calendar integration, SMS; "Message Agent" fires email + SMS alerts to the agent to reconnect.</p></div>
+      <div class="card"><div class="seg-label">Account</div><h4>My Account</h4><p style="font-size:13.2px;margin:0">Two areas — Account Details (security, contact, comms preferences) and My Financial Profile (the intelligence data behind recommendations).</p></div>
+      <div class="card"><div class="seg-label">Unify</div><h4>Unified Enrollment</h4><p style="font-size:13.2px;margin:0">Single stepper embedding e-apps, calculators, disclosures &amp; e-sign — <b>abstracts away</b> the underlying differences across IMOs, carriers &amp; enrollment platforms.</p></div>
+    </div>
+  </main>
+
+  <main id="cc-ai" class="subpanel hide">
+    <span class="kicker">Concept 02 · The Brains</span>
+    <h2 class="section"><span class="n">04</span> · AI Engine (SIRE) &amp; Agent Safeguards</h2>
+    <div class="panelbox">
+      <h3>SIRE — Simplicity Intelligent Recommendation Engine</h3>
+      <p style="font-size:13.6px;margin:0 0 8px">An AI microservice that takes the client's financial profile as input and outputs Simplicity assessments &amp; solutions. It powers the Action Center, Suggested Solutions, and the filtered catalog.</p>
+      <div class="grid3">
+        <div class="card"><h4 style="font-size:15px">Gap Analysis</h4><p style="font-size:13px;margin:0">Flags under-insurance or excess volatility exposure; surfaces it in the Action Center.</p></div>
+        <div class="card"><h4 style="font-size:15px">Goal-Based Matching</h4><p style="font-size:13px;margin:0">"Retirement Security" → annuities; "Wealth Transfer" → life/estate tools.</p></div>
+        <div class="card"><h4 style="font-size:15px">Risk Calibration</h4><p style="font-size:13px;margin:0">Filters out products too aggressive/conservative for the client's tolerance.</p></div>
+        <div class="card"><h4 style="font-size:15px">Real-Time Optimization</h4><p style="font-size:13px;margin:0">Monitors market &amp; life changes; re-aligns strategy and alerts client/agent.</p></div>
+      </div>
+    </div>
+    <div class="two">
+      <div class="panelbox">
+        <h3>Agent Center integration — SCC as a revenue driver</h3>
+        <ul class="clean">
+          <li><b>"Invite Client to SCC"</b> button in the Agent Center Quick Links (launches the Scenario-B invite).</li>
+          <li>Client actions (start e-app, e-sign) flow instantly into the agent's <b>"My Business" Pending pipeline</b>.</li>
+          <li>Issued policies update the agent's <b>Annuity &amp; Life Target Premium</b> metrics — ties SCC directly to Concept 01's recruiting pitch.</li>
+        </ul>
+      </div>
+      <div class="panelbox">
+        <h3>Safeguarding the primary agent</h3>
+        <ul class="clean">
+          <li><b>Primary Agent Sovereignty</b> — AI never cross-sells or suggests a partner agent without the primary agent's digital sign-off.</li>
+          <li><b>Agent Approval Queue</b> — AI-identified solutions route to the agent's dashboard before appearing in the client's Suggested Solutions.</li>
+          <li><b>Intelligent Collaborative Matching</b> — needs outside the agent's specialty trigger a best-fit Simplicity partner/IMO "warm handoff," with the primary agent kept central.</li>
+          <li><b>Client distribution</b> — unassigned (open-market) clients are matched to an agent by product need/profile.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
 </section>
+
+<!-- ================= CONCEPT 03 placeholder ================= -->
 <section id="c3" class="concept-panel hide">
-  <div class="soonwrap"><div class="big">Concept 03 — to be defined</div><p>Reserved for a future concept.</p></div>
+  <div class="soonwrap"><div class="big">Concept 03 — to be defined</div><p>Reserved for a future concept in the "Simplicity Concepts Leveraging AI" portfolio — same pattern: its own tabs, its own build-out.</p></div>
 </section>
 
 <footer>
-  Simplicity Concepts Leveraging AI · Concept 01 = Client Acquisition (formerly the Level-1 Recruiting Intelligence Hub). SG-CIH · W-SG-L1M · INTERNAL. Fresh rebuild — the lane's fully built Tab 2/Tab 3 detail (Form D intake, cost tables, tooltips) can be merged in on request.
+  Simplicity Concepts Leveraging AI · Concept 01 = Client Acquisition · Concept 02 = Simplicity Client Center (SCC). SG-CIH · W-SG-L1M · INTERNAL. Concept 02 synthesized from internal SCC decks &amp; docs.
 </footer>
 
 <script>
@@ -285,9 +423,15 @@
   }
   function showSub(id){
     showConcept('c1');
-    document.querySelectorAll('.subpanel').forEach(p=>p.classList.add('hide'));
+    document.querySelectorAll('#c1 .subpanel').forEach(p=>p.classList.add('hide'));
     document.getElementById(id).classList.remove('hide');
-    document.querySelectorAll('.subtab').forEach(t=>t.classList.toggle('active',t.dataset.sub===id));
+    document.querySelectorAll('#c1 .subtab').forEach(t=>t.classList.toggle('active',t.dataset.sub===id));
+  }
+  function showSub2(id){
+    showConcept('c2');
+    document.querySelectorAll('#c2 .subpanel').forEach(p=>p.classList.add('hide'));
+    document.getElementById(id).classList.remove('hide');
+    document.querySelectorAll('#c2 .subtab').forEach(t=>t.classList.toggle('active',t.dataset.sub===id));
   }
 </script>
 </body>
