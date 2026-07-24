@@ -147,7 +147,7 @@
     <div class="brandmark"><div class="n">Simplicity <span>Vantage</span></div><div class="t">Executive Intelligence</div></div>
     <label>Corporate email</label><input value="j.austin@simplicitygroup.com">
     <label>Password</label><input type="password" value="••••••••••">
-    <button class="btn" style="width:100%;margin-top:20px" onclick="login()">Secure sign-in →</button>
+    <button class="btn" style="width:100%;margin-top:20px" onclick="signIn()">Secure sign-in →</button>
     <div class="seccav"><span class="s">🔐 SSO / SAML</span><span class="s">📱 MFA required</span><span class="s">🛡️ SOC 2</span><span class="s">Role-based access</span></div>
     <p class="muted" style="text-align:center;font-size:11.5px;margin-top:14px">Executive &amp; board access only · session audited</p>
   </div>
@@ -377,7 +377,7 @@ var PORTFOLIO=[
 ];
 
 /* ---------- APP LOGIC ---------- */
-function login(){document.getElementById('login').classList.remove('active');document.getElementById('app').classList.add('active');window.scrollTo(0,0);nav('dash');renderPortfolio();renderRadar('all','fit');}
+function signIn(){document.getElementById('login').classList.remove('active');document.getElementById('app').classList.add('active');window.scrollTo(0,0);nav('dash');renderPortfolio();renderRadar('all','fit');}
 function nav(sec){
   document.querySelectorAll('.navitem').forEach(n=>n.classList.toggle('active',n.dataset.sec===sec));
   ['dash','portfolio','radar','settings'].forEach(s=>document.getElementById('sec-'+s).style.display=(s===sec)?'block':'none');
