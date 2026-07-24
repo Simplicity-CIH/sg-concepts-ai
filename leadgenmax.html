@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead Gen Max — AI Appointment Engine (Demo)</title>
+<style>
+  :root{--navy:#0c2740;--navy2:#0f3652;--teal:#1a9d9d;--teal-d:#127a7a;--ink:#1f2d3d;--muted:#5b6b7b;--line:#e2e8ee;--bg:#eef2f5;--card:#fff;--green:#1f9d55;--amber:#e0a800;--red:#d9534f}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  button{font-family:inherit;cursor:pointer}
+  .disc{background:#fceceb;border-bottom:1px solid #e6b3b0;color:#8a2b2b;font-size:12px;padding:7px 16px;text-align:center;font-weight:600}
+  .disc a{color:#8a2b2b}
+  .topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:11px 22px;position:sticky;top:0;z-index:20}
+  .topbar .logo{font-weight:800}.topbar .logo span{color:#5fd3d3}
+  .topbar .who{font-size:12.5px;color:#c4d4e2}
+  .shell{display:grid;grid-template-columns:200px 1fr;align-items:start}
+  @media(max-width:900px){.shell{grid-template-columns:54px 1fr}.navitem span.tx{display:none}}
+  .side{background:#fff;border-right:1px solid var(--line);min-height:calc(100vh-90px);padding:14px 10px;position:sticky;top:52px}
+  .navitem{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:9px;color:var(--ink);font-weight:600;font-size:14px;cursor:pointer;margin-bottom:3px}
+  .navitem:hover{background:#f1f5f7}.navitem.active{background:#e7f4f4;color:var(--teal-d)}
+  .content{padding:22px 26px 60px}
+  h2.h{font-size:21px;margin:0 0 2px;font-weight:800}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 18px}
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px}
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(3,1fr)}}
+  .kbox{background:#fff;border:1px solid var(--line);border-radius:11px;padding:14px}
+  .kbox .v{font-size:22px;font-weight:800;color:var(--navy)}
+  .kbox .l{font-size:11.5px;color:var(--muted)}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+  .panel h3{font-size:15px;margin:0 0 14px;color:var(--navy)}
+  .funnel{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+  .fstep{flex:1;min-width:120px;background:linear-gradient(135deg,var(--navy),var(--teal-d));color:#fff;border-radius:10px;padding:14px;text-align:center}
+  .fstep .v{font-size:22px;font-weight:800}
+  .fstep .l{font-size:11.5px;color:#bfe3e3}
+  .fstep.small{background:#f1f5f7;color:var(--ink)}
+  .fstep.small .l{color:var(--muted)}
+  .teams{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .team{border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+  .team .nm{font-weight:700;font-size:13.5px}
+  .team .st{font-size:11.5px;color:var(--muted);margin-top:4px}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:5px}
+  .btn{background:var(--teal);color:#fff;border:none;border-radius:9px;padding:10px 18px;font-weight:700;font-size:13.5px}
+  .btn:hover{background:var(--teal-d)}.btn.sm{padding:7px 13px;font-size:12.5px}
+  .btn.ghost{background:transparent;color:var(--teal-d);border:1px solid var(--teal)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr.prow{cursor:pointer}tr.prow:hover{background:#f7fafb}
+  .src{font-size:10.5px;font-weight:700;border-radius:20px;padding:2px 9px;background:#eef2f5;color:#40566a}
+  .rdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px}
+  .r-on{background:var(--green)}.r-off{background:#d6dde3}
+  .stat{font-size:11px;font-weight:700;border-radius:20px;padding:3px 10px}
+  .s-new{background:#eef2f5;color:#5b6b7b}.s-enr{background:#e7f4f4;color:#127a7a}.s-con{background:#fdf3d6;color:#8a6d1a}.s-appt{background:#e2f3e8;color:#1f7a44}
+  .overlay{position:fixed;inset:0;background:rgba(9,26,42,.55);display:none;align-items:flex-start;justify-content:center;z-index:60;padding:24px;overflow-y:auto}
+  .overlay.open{display:flex}
+  .modal{background:var(--bg);border-radius:14px;width:100%;max-width:760px;box-shadow:0 24px 70px rgba(0,0,0,.4);overflow:hidden}
+  .mhead{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:flex-start}
+  .mhead .nm{font-size:19px;font-weight:800}.mhead .meta{color:#c4d4e2;font-size:12.5px;margin-top:2px}
+  .mhead .x{cursor:pointer;font-size:20px}
+  .mbody{padding:20px 24px 26px}
+  .mcard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:15px 17px;margin-bottom:14px}
+  .mcard h4{margin:0 0 9px;font-size:13.5px;color:var(--navy)}
+  .rrow{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:1px dashed var(--line)}
+  .costtbl td,.costtbl th{padding:7px 9px;font-size:12.5px}
+  .phase{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+  @media(max-width:700px){.phase{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+  .pcard{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}
+  .pcard .t{font-size:12px;font-weight:800;text-transform:uppercase;color:var(--teal-d)}
+  .pcard .big{font-size:22px;font-weight:800;color:var(--navy);margin:6px 0 0}
+  .muted{color:var(--muted)}
+  .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="disc">⚠️ INTERNAL AI-BUILT CONCEPT DEMO — Lead Gen Max · all prospects, numbers &amp; costs are ILLUSTRATIVE / fake · <a href="./">← back to Concepts</a></div>
+<div class="topbar"><div class="logo">Lead Gen <span>Max</span> · AI Appointment Engine</div><div class="who">Simplicity Corp Dev · demo</div></div>
+<div class="shell">
+  <nav class="side">
+    <div class="navitem active" data-sec="pipeline" onclick="go('pipeline')"><span>📈</span><span class="tx">Pipeline</span></div>
+    <div class="navitem" data-sec="prospects" onclick="go('prospects')"><span>🎯</span><span class="tx">Prospects</span></div>
+    <div class="navitem" data-sec="discovery" onclick="go('discovery')"><span>🛰️</span><span class="tx">Discovery</span></div>
+    <div class="navitem" data-sec="economics" onclick="go('economics')"><span>💰</span><span class="tx">Economics</span></div>
+  </nav>
+  <div class="content">
+
+    <!-- PIPELINE -->
+    <div id="s-pipeline" class="section">
+      <h2 class="h">Pipeline</h2>
+      <p class="sub">Manufacture qualified appointments from public data — sourced, enriched, contacted, booked, and distributed to advisors.</p>
+      <div class="kpis">
+        <div class="kbox"><div class="v">1,240</div><div class="l">Sourced (30d)</div></div>
+        <div class="kbox"><div class="v">780</div><div class="l">Enriched</div></div>
+        <div class="kbox"><div class="v">512</div><div class="l">Contacted</div></div>
+        <div class="kbox"><div class="v">38</div><div class="l">Appts booked</div></div>
+        <div class="kbox"><div class="v">34</div><div class="l">Distributed</div></div>
+        <div class="kbox"><div class="v">~$180</div><div class="l">Cost / appt</div></div>
+      </div>
+      <div class="panel">
+        <h3>The engine</h3>
+        <div class="funnel">
+          <div class="fstep"><div class="v">1,240</div><div class="l">Source</div></div>
+          <div class="fstep"><div class="v">780</div><div class="l">Enrich</div></div>
+          <div class="fstep"><div class="v">512</div><div class="l">AI outreach</div></div>
+          <div class="fstep"><div class="v">38</div><div class="l">Book</div></div>
+          <div class="fstep small"><div class="v">34</div><div class="l">Distribute → advisors</div></div>
+        </div>
+        <div class="cta-row" style="margin-top:14px">
+          <button class="btn" onclick="alert('Demo: triggers all 5 discovery agent teams to run now.')">▶ Run discovery now</button>
+          <button class="btn ghost" onclick="openEst()">Estimated output &amp; cost →</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Recently booked appointments</h3>
+        <table><tr><th>Prospect</th><th>Source</th><th>Assigned advisor</th><th>Status</th></tr>
+          <tr><td>M. Torres — Torres Mfg (owner)</td><td><span class="src">SEC Form D</span></td><td>A. Rivera (TX)</td><td><span class="stat s-appt">Appt booked</span></td></tr>
+          <tr><td>D. Kline — recently liquid</td><td><span class="src">News</span></td><td>J. Okafor (CO)</td><td><span class="stat s-appt">Appt booked</span></td></tr>
+          <tr><td>Prisma Advisors (RIA)</td><td><span class="src">Form ADV</span></td><td>Corp Dev</td><td><span class="stat s-appt">Appt booked</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- PROSPECTS -->
+    <div id="s-prospects" class="section" style="display:none">
+      <h2 class="h">Prospects</h2>
+      <p class="sub">AI-discovered targets with a <b>Source badge</b> and per-field <b>readiness</b> (● present / ● missing). Click a row for the full record &amp; two-stage distribute.</p>
+      <div class="panel" style="padding:0"><div style="padding:16px 16px 0"><table id="ptable"><tr><th>Prospect</th><th>Type</th><th>Source</th><th>Readiness</th><th>Fit</th><th>Status</th></tr></table></div><div id="prows" style="padding:0 16px 16px"></div></div>
+    </div>
+
+    <!-- DISCOVERY -->
+    <div id="s-discovery" class="section" style="display:none">
+      <h2 class="h">Discovery</h2>
+      <p class="sub">Scheduled AI agent teams, each assigned a target type &amp; public source. When all finish, a consolidation agent ranks best-fit matches into the pipeline.</p>
+      <div class="panel">
+        <h3>Agent teams · last run today 02:00 ET · next run tonight 02:00</h3>
+        <div class="teams">
+          <div class="team"><div class="nm"><span class="dot"></span>Team A — Newly-liquid business owners</div><div class="st">Source: SEC Form D · 420 screened · 61 surfaced</div></div>
+          <div class="team"><div class="nm"><span class="dot"></span>Team B — RIAs seeking affiliation</div><div class="st">Source: SEC Form ADV · 310 screened · 44 surfaced</div></div>
+          <div class="team"><div class="nm"><span class="dot"></span>Team C — Pre-retiree HNW signals</div><div class="st">Source: public web/news · 280 screened · 38 surfaced</div></div>
+          <div class="team"><div class="nm"><span class="dot"></span>Team D — Senior/Medicare FMOs</div><div class="st">Source: CMS + state filings · 140 screened · 12 surfaced</div></div>
+          <div class="team"><div class="nm"><span class="dot"></span>Team E — Marketing/data agencies</div><div class="st">Source: LinkedIn + web · 90 screened · 9 surfaced</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>How it works</h3>
+        <div class="funnel">
+          <div class="fstep small"><div class="l"><b>Flag Engine</b><br>G/Y/R criteria</div></div>
+          <div class="fstep small"><div class="l"><b>Agent teams</b><br>scan public data</div></div>
+          <div class="fstep small"><div class="l"><b>Consolidation</b><br>rank + best-fit</div></div>
+          <div class="fstep small"><div class="l"><b>Pipeline</b><br>auto-populated</div></div>
+        </div>
+        <p class="muted" style="font-size:12.5px;margin-top:12px">Concept only — public data sources; no live outreach is wired. Compliance &amp; data-source review required before any build.</p>
+      </div>
+    </div>
+
+    <!-- ECONOMICS -->
+    <div id="s-economics" class="section" style="display:none">
+      <h2 class="h">Economics</h2>
+      <p class="sub">The business case: manufacture appointments at low marginal cost — spend is <b>3rd-party subscriptions only</b> (in-house build ≈ $0 dev).</p>
+      <div class="phase">
+        <div class="pcard"><div class="t">MVP</div><div class="big">~15</div><div class="muted">appts / mo · ~$1.2k/mo subs</div></div>
+        <div class="pcard"><div class="t">TurboCharge</div><div class="big">~45</div><div class="muted">appts / mo · ~$3.5k/mo subs</div></div>
+        <div class="pcard"><div class="t">Go-Max</div><div class="big">~120</div><div class="muted">appts / mo · ~$7.5k/mo subs</div></div>
+      </div>
+      <div class="panel">
+        <h3>ROI model — Cold Email → Revenue Projector</h3>
+        <p class="muted" style="margin:0 0 10px;font-size:13.4px">The interactive projector models subscribers &amp; MRR from send rate, conversion, churn &amp; price — the full business case behind Go-Max.</p>
+        <a class="btn" href="https://simplicity-cih.github.io/sg-coldemail-projector/" target="_blank" rel="noopener">▶ Open the live Revenue Projector →</a>
+      </div>
+      <div class="panel"><h3>Cost model (3rd-party subscriptions)</h3><table class="costtbl"><tr><th>Layer</th><th>Example vendors</th><th>~Monthly (Go-Max)</th></tr>
+        <tr><td>Data / sourcing</td><td>Form D + filings feeds, data provider</td><td>$2,000</td></tr>
+        <tr><td>Enrichment</td><td>Contact + wealth-signal APIs</td><td>$1,800</td></tr>
+        <tr><td>AI outreach / sending</td><td>Email infra + LLM</td><td>$2,200</td></tr>
+        <tr><td>Scheduling / CRM sync</td><td>Calendar + CRM API</td><td>$1,500</td></tr>
+        <tr><td style="font-weight:700">Total</td><td></td><td style="font-weight:700">~$7,500 / mo</td></tr>
+      </table></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROSPECT MODAL -->
+<div class="overlay" id="ov" onclick="if(event.target===this)closeM()"><div class="modal" id="modal"></div></div>
+<!-- ESTIMATE MODAL -->
+<div class="overlay" id="ovEst" onclick="if(event.target===this)closeEst()"><div class="modal" id="estModal"></div></div>
+
+<script>
+var P=[
+ {n:"Michael Torres",co:"Torres Manufacturing (owner)",type:"Business owner",src:"SEC Form D",region:"TX",fit:88,status:"appt",r:{Email:1,Phone:1,Wealth:1,Intent:1},est:"~$4M liquidity event",note:"Filed Form D raising capital; classic newly-liquid business owner — prime for wealth + protection planning.",out:"Congrats on the raise — many founders at this stage look at tax-efficient wealth strategies. Worth a 15-min call?"},
+ {n:"Dana Kline",co:"Recently liquid (equity sale)",type:"Recently liquid",src:"News",region:"CO",fit:82,status:"appt",r:{Email:1,Phone:0,Wealth:1,Intent:1},out:"Saw the news on your company's sale — congratulations. We help founders structure post-liquidity plans."},
+ {n:"Prisma Advisors",co:"RIA · ~$700M AUM",type:"RIA",src:"Form ADV",region:"AZ",fit:79,status:"con",r:{Email:1,Phone:1,Wealth:1,Intent:0},note:"Mid-size RIA, founder ~60 — potential affiliation/succession target.",out:"Exploring succession or a partnership that keeps your brand? Happy to share how our model works."},
+ {n:"Grant Hollis",co:"Hollis Family Holdings (owner)",type:"Business owner",src:"SEC Form D",region:"FL",fit:76,status:"enr",r:{Email:1,Phone:1,Wealth:1,Intent:0},out:"Reaching out to business owners in FL about protection + accumulation strategies."},
+ {n:"Sofia Marchetti",co:"Pre-retiree · exec",type:"Pre-retiree HNW",src:"Public web",region:"IL",fit:71,status:"enr",r:{Email:1,Phone:0,Wealth:1,Intent:0},out:"Approaching retirement? We help executives de-risk and lock in income."},
+ {n:"Cedar Senior Group",co:"Medicare FMO",type:"FMO",src:"CMS + filings",region:"OH",fit:64,status:"new",r:{Email:1,Phone:0,Wealth:0,Intent:0},note:"Senior-market FMO; possible acquisition/affiliation — check carrier concentration.",out:""},
+ {n:"Northwind Data Co.",co:"Advisor-marketing agency",type:"Marketing agency",src:"LinkedIn",region:"WA",fit:60,status:"new",r:{Email:1,Phone:0,Wealth:0,Intent:0},out:""}
+];
+function stat(s){return s==='appt'?'<span class="stat s-appt">Appt booked</span>':s==='con'?'<span class="stat s-con">Contacted</span>':s==='enr'?'<span class="stat s-enr">Enriched</span>':'<span class="stat s-new">New</span>';}
+function readiness(r){return Object.keys(r).map(function(k){return '<span class="rdot '+(r[k]?'r-on':'r-off')+'" title="'+k+' '+(r[k]?'✓':'missing')+'"></span>';}).join('')+' <span class="muted" style="font-size:11px">'+Object.keys(r).filter(function(k){return r[k];}).length+'/'+Object.keys(r).length+'</span>';}
+function go(sec){document.querySelectorAll('.navitem').forEach(function(n){n.classList.toggle('active',n.dataset.sec===sec);});['pipeline','prospects','discovery','economics'].forEach(function(s){document.getElementById('s-'+s).style.display=(s===sec)?'block':'none';});if(sec==='prospects')renderP();window.scrollTo(0,0);}
+function renderP(){document.getElementById('prows').innerHTML='<table>'+P.map(function(p,i){return '<tr class="prow" onclick="openP('+i+')"><td style="width:26%"><b>'+p.n+'</b><br><span class="muted" style="font-size:12px">'+p.co+'</span></td><td>'+p.type+'</td><td><span class="src">'+p.src+'</span></td><td>'+readiness(p.r)+'</td><td><b style="color:'+(p.fit>=80?'#1f9d55':p.fit>=65?'#e0a800':'#d9534f')+'">'+p.fit+'</b></td><td>'+stat(p.status)+'</td></tr>';}).join('')+'</table>';}
+function openP(i){var p=P[i];var m=document.getElementById('modal');
+ m.innerHTML='<div class="mhead"><div><div class="nm">'+p.n+'</div><div class="meta">'+p.co+' · '+p.type+' · '+p.region+'</div></div><span class="x" onclick="closeM()">✕</span></div>'+
+ '<div class="mbody">'+
+ '<div class="mcard"><h4>Source &amp; signal</h4><p style="font-size:13px;margin:0"><span class="src">'+p.src+'</span> &nbsp; Fit <b>'+p.fit+'</b> &nbsp; '+stat(p.status)+(p.est?' &nbsp; · '+p.est:'')+'</p>'+(p.note?'<p style="font-size:13px;margin:8px 0 0" class="muted">'+p.note+'</p>':'')+'</div>'+
+ '<div class="mcard"><h4>Enrichment readiness</h4>'+Object.keys(p.r).map(function(k){return '<div class="rrow"><span>'+k+'</span><span>'+(p.r[k]?'<span class="rdot r-on"></span> present':'<span class="rdot r-off"></span> missing — needs enrichment')+'</span></div>';}).join('')+'</div>'+
+ (p.out?'<div class="mcard"><h4>AI-drafted first touch</h4><p style="font-size:13px;margin:0;font-style:italic">“'+p.out+'”</p></div>':'')+
+ '<div class="mcard"><h4>Distribute (two-stage)</h4><p class="muted" style="font-size:12.5px;margin:0 0 8px">1) match region → 2) assign advisor</p><div class="cta-row"><button class="btn ghost sm" onclick="alert(\'Demo: matched to region '+p.region+' — advisor shortlist shown.\')">Match region ('+p.region+')</button><button class="btn sm" onclick="alert(\'Demo: assigned to the best-fit advisor and alerted them.\')">Assign advisor →</button></div></div>'+
+ '</div>';
+ document.getElementById('ov').classList.add('open');}
+function closeM(){document.getElementById('ov').classList.remove('open');}
+function openEst(){document.getElementById('estModal').innerHTML='<div class="mhead"><div><div class="nm">Estimated output &amp; cost</div><div class="meta">Phased rollout · illustrative</div></div><span class="x" onclick="closeEst()">✕</span></div><div class="mbody"><div class="phase"><div class="pcard"><div class="t">MVP</div><div class="big">~15</div><div class="muted">appts/mo · ~$1.2k/mo</div></div><div class="pcard"><div class="t">TurboCharge</div><div class="big">~45</div><div class="muted">appts/mo · ~$3.5k/mo</div></div><div class="pcard"><div class="t">Go-Max</div><div class="big">~120</div><div class="muted">appts/mo · ~$7.5k/mo</div></div></div><div class="mcard"><h4>Cost = 3rd-party subscriptions only</h4><table class="costtbl"><tr><th>Layer</th><th>~Monthly (Go-Max)</th></tr><tr><td>Data / sourcing</td><td>$2,000</td></tr><tr><td>Enrichment</td><td>$1,800</td></tr><tr><td>AI outreach / sending</td><td>$2,200</td></tr><tr><td>Scheduling / CRM sync</td><td>$1,500</td></tr><tr><td style="font-weight:700">Total</td><td style="font-weight:700">~$7,500 / mo</td></tr></table><p class="muted" style="font-size:12px;margin:8px 0 0">In-house build ≈ $0 dev. Figures illustrative.</p></div></div>';document.getElementById('ovEst').classList.add('open');}
+function closeEst(){document.getElementById('ovEst').classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeM();closeEst();}});
+</script>
+</body>
+</html>
