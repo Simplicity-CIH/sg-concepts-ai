@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simplicity Vantage — Executive Intelligence</title>
+<style>
+  :root{
+    --navy:#0c2740;--navy2:#0f3652;--teal:#1a9d9d;--teal-d:#127a7a;--ink:#1f2d3d;
+    --muted:#5b6b7b;--line:#e2e8ee;--bg:#eef2f5;--card:#fff;
+    --green:#1f9d55;--amber:#e0a800;--red:#d9534f;--gold:#c9a227;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  button{font-family:inherit;cursor:pointer}
+  .demo-banner{background:#fdf6e0;border-bottom:1px solid #e0a800;color:#7a5b00;font-size:12px;padding:6px 16px;text-align:center;font-weight:600}
+  .demo-banner a{color:#7a5b00}
+  .view{display:none}.view.active{display:block}
+  .btn{background:var(--teal);color:#fff;border:none;border-radius:9px;padding:12px 20px;font-weight:700;font-size:14px}
+  .btn:hover{background:var(--teal-d)}
+  .btn.sm{padding:7px 13px;font-size:12.5px;border-radius:7px}
+  .btn.ghost{background:transparent;color:var(--teal-d);border:1px solid var(--teal)}
+  .btn.gold{background:var(--gold)}
+
+  /* LOGIN */
+  #login{min-height:100vh;background:radial-gradient(1200px 600px at 70% -10%,#12405f,transparent),linear-gradient(135deg,#0a2138,#0f3652);display:flex;align-items:center;justify-content:center;padding:20px}
+  .loginbox{background:#fff;border-radius:16px;padding:38px 34px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+  .brandmark{text-align:center;margin-bottom:6px}
+  .brandmark .n{font-size:24px;font-weight:800;color:var(--navy)}
+  .brandmark .n span{color:var(--teal)}
+  .brandmark .t{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:2px}
+  .loginbox label{font-size:12.5px;font-weight:600;color:var(--muted);display:block;margin-top:16px}
+  .loginbox input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;margin-top:5px}
+  .seccav{display:flex;gap:8px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+  .seccav .s{font-size:10.5px;color:var(--muted);background:#f1f5f7;border:1px solid var(--line);border-radius:20px;padding:4px 10px;font-weight:600}
+  .lock{text-align:center;color:var(--teal);font-size:26px;margin-bottom:6px}
+
+  /* APP CHROME */
+  .topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:11px 22px;position:sticky;top:0;z-index:20}
+  .topbar .logo{font-weight:800}.topbar .logo span{color:#5fd3d3}
+  .topbar .who{display:flex;align-items:center;gap:10px;font-size:13px}
+  .avatar{width:32px;height:32px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+  .shell{display:grid;grid-template-columns:210px 1fr;align-items:start}
+  @media(max-width:900px){.shell{grid-template-columns:56px 1fr}.navitem span.tx{display:none}}
+  .side{background:#fff;border-right:1px solid var(--line);min-height:calc(100vh - 54px);padding:14px 10px;position:sticky;top:54px}
+  .navitem{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:9px;color:var(--ink);font-weight:600;font-size:14px;cursor:pointer;margin-bottom:3px}
+  .navitem:hover{background:#f1f5f7}
+  .navitem.active{background:#e7f4f4;color:var(--teal-d)}
+  .navitem .ic{width:18px;text-align:center}
+  .content{padding:24px 26px}
+  h2.h{font-size:22px;margin:0 0 2px;font-weight:800}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 20px}
+
+  /* KPI HERO */
+  .hero{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+  @media(max-width:960px){.hero{grid-template-columns:1fr 1fr}}
+  .kbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .kbox.dark{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border:none}
+  .kbox .l{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .kbox.dark .l{color:#9fd0d0}
+  .kbox .v{font-size:30px;font-weight:800;margin-top:4px}
+  .kbox .v small{font-size:15px;font-weight:700}
+  .kbox .d{font-size:12px;margin-top:3px}
+  .up{color:var(--green);font-weight:700}.down{color:var(--red);font-weight:700}
+  .kbox.dark .up{color:#7ee0a6}
+
+  .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+  .panel h3{font-size:15px;margin:0 0 14px;color:var(--navy)}
+  .row2{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
+  @media(max-width:900px){.row2{grid-template-columns:1fr}}
+  .minikpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .mk{background:#f7fafb;border:1px solid var(--line);border-radius:9px;padding:11px}
+  .mk .v{font-size:17px;font-weight:800;color:var(--navy)}
+  .mk .l{font-size:11px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .health{display:inline-block;width:10px;height:10px;border-radius:50%}
+  .h-green{background:var(--green)}.h-amber{background:var(--amber)}.h-red{background:var(--red)}
+  .chip{display:inline-block;font-size:11px;font-weight:700;border-radius:20px;padding:2px 9px}
+  .chip.g{background:#e2f3e8;color:#1f7a44}.chip.y{background:#fdf3d6;color:#8a6d1a}.chip.r{background:#fbe3e2;color:#b23c38}.chip.n{background:#eef2f5;color:#5b6b7b}
+
+  /* RADAR */
+  .radar-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+  .scan{font-size:12px;color:var(--muted)}
+  .scan b{color:var(--green)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .filters select{padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff}
+  .opprow{display:grid;grid-template-columns:2fr 1.1fr 1fr .9fr 1fr auto;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:11px;padding:13px 15px;margin-bottom:9px;cursor:pointer}
+  .opprow:hover{border-color:var(--teal);box-shadow:0 2px 10px rgba(16,42,67,.08)}
+  .opprow .nm{font-weight:700;font-size:14.5px}
+  .opprow .meta{font-size:12px;color:var(--muted)}
+  .fit{font-weight:800;font-size:18px}
+  .fitwrap{text-align:center}
+  .fitwrap .fl{font-size:10px;color:var(--muted);text-transform:uppercase}
+  .dots{display:flex;gap:5px;align-items:center}
+  .dots .dot{display:flex;align-items:center;gap:3px;font-size:12px;font-weight:700}
+  .action{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:20px;padding:4px 11px;text-align:center}
+  .a-pursue{background:#e2f3e8;color:#1f7a44}.a-watch{background:#fdf3d6;color:#8a6d1a}.a-pass{background:#fbe3e2;color:#b23c38}
+
+  /* MODAL */
+  .overlay{position:fixed;inset:0;background:rgba(9,26,42,.55);display:none;align-items:flex-start;justify-content:center;z-index:60;padding:24px;overflow-y:auto}
+  .overlay.open{display:flex}
+  .modal{background:var(--bg);border-radius:14px;width:100%;max-width:1080px;box-shadow:0 24px 70px rgba(0,0,0,.4);overflow:hidden}
+  .modal-head{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:20px 26px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+  .modal-head .nm{font-size:22px;font-weight:800}
+  .modal-head .meta{color:#c4d4e2;font-size:13px;margin-top:3px}
+  .modal-head .x{cursor:pointer;font-size:22px;line-height:1}
+  .fitbig{text-align:center;background:rgba(255,255,255,.1);border-radius:12px;padding:10px 16px}
+  .fitbig .v{font-size:32px;font-weight:800}
+  .fitbig .l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9fd0d0}
+  .modal-body{padding:22px 26px 30px;max-height:none}
+  .mb-kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
+  @media(max-width:820px){.mb-kpis{grid-template-columns:repeat(3,1fr)}}
+  .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  @media(max-width:820px){.mgrid{grid-template-columns:1fr}}
+  .mcard{background:#fff;border:1px solid var(--line);border-radius:11px;padding:16px 18px}
+  .mcard h4{margin:0 0 10px;font-size:14px;color:var(--navy)}
+  .flags3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+  @media(max-width:820px){.flags3{grid-template-columns:1fr}}
+  .flagcol{border-radius:11px;padding:14px 16px}
+  .flagcol.g{background:#eefaf1;border:1px solid #bfe6cd}
+  .flagcol.y{background:#fdf9ec;border:1px solid #efe0b0}
+  .flagcol.r{background:#fdecec;border:1px solid #f0c8c6}
+  .flagcol h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+  .flagcol.g h4{color:#1f7a44}.flagcol.y h4{color:#8a6d1a}.flagcol.r h4{color:#b23c38}
+  .flagcol ul{margin:0;padding-left:16px}
+  .flagcol li{font-size:12.7px;margin-bottom:8px}
+  .flagcol .fix{color:var(--teal-d);font-weight:600}
+  .arb{background:linear-gradient(135deg,#0c2740,#127a7a);color:#fff;border-radius:12px;padding:18px 22px;margin-bottom:16px}
+  .arb .row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center;margin-top:10px}
+  @media(max-width:820px){.arb .row{grid-template-columns:1fr 1fr}}
+  .arb .row .v{font-size:22px;font-weight:800}
+  .arb .row .l{font-size:11px;color:#9fd0d0}
+  .modal-foot{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;padding:0 26px 24px}
+  .src{font-size:11.5px;color:var(--muted);margin-top:6px}
+  .muted{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="demo-banner">🔒 INTERNAL DEMO — Simplicity Vantage · all financials, companies &amp; opportunities are ILLUSTRATIVE / fake · <a href="./">← back to Concepts</a></div>
+
+<!-- ===== LOGIN ===== -->
+<section id="login" class="view active">
+  <div class="loginbox">
+    <div class="lock">🔒</div>
+    <div class="brandmark"><div class="n">Simplicity <span>Vantage</span></div><div class="t">Executive Intelligence</div></div>
+    <label>Corporate email</label><input value="j.austin@simplicitygroup.com">
+    <label>Password</label><input type="password" value="••••••••••">
+    <button class="btn" style="width:100%;margin-top:20px" onclick="login()">Secure sign-in →</button>
+    <div class="seccav"><span class="s">🔐 SSO / SAML</span><span class="s">📱 MFA required</span><span class="s">🛡️ SOC 2</span><span class="s">Role-based access</span></div>
+    <p class="muted" style="text-align:center;font-size:11.5px;margin-top:14px">Executive &amp; board access only · session audited</p>
+  </div>
+</section>
+
+<!-- ===== APP ===== -->
+<section id="app" class="view">
+  <div class="topbar">
+    <div class="logo">Simplicity <span>Vantage</span></div>
+    <div class="who"><span>Jamin Austin · Executive</span><div class="avatar">JA</div></div>
+  </div>
+  <div class="shell">
+    <nav class="side">
+      <div class="navitem active" data-sec="dash" onclick="nav('dash')"><span class="ic">📊</span><span class="tx">Dashboard</span></div>
+      <div class="navitem" data-sec="portfolio" onclick="nav('portfolio')"><span class="ic">🏢</span><span class="tx">Portfolio</span></div>
+      <div class="navitem" data-sec="radar" onclick="nav('radar')"><span class="ic">🎯</span><span class="tx">Acquisition Radar</span></div>
+      <div class="navitem" data-sec="settings" onclick="nav('settings')"><span class="ic">⚙️</span><span class="tx">Settings</span></div>
+    </nav>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div id="sec-dash" class="section">
+        <h2 class="h">Enterprise Value &amp; Performance</h2>
+        <p class="sub">The state of Simplicity at a glance — as of Q2 2026 · figures illustrative.</p>
+        <div class="hero">
+          <div class="kbox dark"><div class="l">Estimated Enterprise Value</div><div class="v">$3.8B</div><div class="d"><span class="up">▲ +19% YoY</span> · ~4x since 2020 recap</div></div>
+          <div class="kbox"><div class="l">Implied Multiple</div><div class="v">17.0<small>x</small></div><div class="d muted">Adj. EBITDA (platform)</div></div>
+          <div class="kbox"><div class="l">LTM Revenue</div><div class="v">$1.10<small>B</small></div><div class="d"><span class="up">▲ +22%</span></div></div>
+          <div class="kbox"><div class="l">LTM Adj. EBITDA</div><div class="v">$224<small>M</small></div><div class="d muted">20.4% margin</div></div>
+        </div>
+
+        <div class="row2">
+          <div class="panel">
+            <h3>Value-creation trajectory (est. enterprise value)</h3>
+            <svg viewBox="0 0 620 240" width="100%" height="230">
+              <line x1="40" y1="200" x2="600" y2="200" stroke="#e2e8ee"/>
+              <polyline fill="none" stroke="#1a9d9d" stroke-width="3" points="50,190 150,172 250,140 350,96 450,60 560,40"/>
+              <polygon fill="rgba(26,157,157,.10)" points="50,190 150,172 250,140 350,96 450,60 560,40 560,200 50,200"/>
+              <!-- markers -->
+              <circle cx="250" cy="140" r="6" fill="#c9a227"/><text x="250" y="128" font-size="10" text-anchor="middle" fill="#8a6d1a">Lee Equity '20</text>
+              <circle cx="450" cy="60" r="6" fill="#c9a227"/><text x="450" y="48" font-size="10" text-anchor="middle" fill="#8a6d1a">SkyKnight+Dragoneer '24</text>
+              <circle cx="50" cy="190" r="4" fill="#1a9d9d"/><text x="50" y="216" font-size="10" text-anchor="middle" fill="#5b6b7b">2016</text>
+              <text x="150" y="216" font-size="10" text-anchor="middle" fill="#5b6b7b">2018</text>
+              <text x="250" y="216" font-size="10" text-anchor="middle" fill="#5b6b7b">2020</text>
+              <text x="350" y="216" font-size="10" text-anchor="middle" fill="#5b6b7b">2022</text>
+              <text x="450" y="216" font-size="10" text-anchor="middle" fill="#5b6b7b">2024</text>
+              <text x="560" y="216" font-size="10" text-anchor="middle" fill="#5b6b7b">2026</text>
+              <text x="560" y="30" font-size="11" text-anchor="middle" fill="#0c2740" font-weight="700">$3.8B</text>
+            </svg>
+            <p class="src">Illustrative. Recaps mark liquidity events; company states the 2024 recap delivered ~4x in 4 years with 68% of partners reinvesting.</p>
+          </div>
+          <div class="panel">
+            <h3>Capital &amp; ownership</h3>
+            <div class="minikpis">
+              <div class="mk"><div class="v">SkyKnight<br>+ Dragoneer</div><div class="l">Sponsors (2024)</div></div>
+              <div class="mk"><div class="v">~45%</div><div class="l">Employee / partner owned</div></div>
+              <div class="mk"><div class="v">~4.3x</div><div class="l">Net leverage</div></div>
+            </div>
+            <h3 style="margin-top:18px">Growth engine</h3>
+            <div class="minikpis">
+              <div class="mk"><div class="v">70+</div><div class="l">Acquisitions since '16</div></div>
+              <div class="mk"><div class="v">+9%</div><div class="l">Organic growth</div></div>
+              <div class="mk"><div class="v">6</div><div class="l">In pipeline (Radar)</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Scale &amp; production</h3>
+          <div class="minikpis" style="grid-template-columns:repeat(6,1fr)">
+            <div class="mk"><div class="v">20,000+</div><div class="l">Financial pros</div></div>
+            <div class="mk"><div class="v">100+</div><div class="l">Partner agencies</div></div>
+            <div class="mk"><div class="v">450+</div><div class="l">Shareholder-partners</div></div>
+            <div class="mk"><div class="v">$14B+</div><div class="l">Annuity sales</div></div>
+            <div class="mk"><div class="v">$615M+</div><div class="l">Life sales</div></div>
+            <div class="mk"><div class="v">$12B+</div><div class="l">RIA AUM</div></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Portfolio health — top divisions <span class="muted" style="font-weight:400">· click Portfolio for detail</span></h3>
+          <table>
+            <tr><th>Company</th><th>Type</th><th>Est. Revenue</th><th>EBITDA margin</th><th>Integration</th><th>Health</th></tr>
+            <tr><td>Simplicity Wealth</td><td>RIA / Wealth</td><td>$185M</td><td>28%</td><td>Complete</td><td><span class="health h-green"></span></td></tr>
+            <tr><td>The Leaders Group</td><td>Broker-Dealer</td><td>$96M</td><td>18%</td><td>Complete</td><td><span class="health h-green"></span></td></tr>
+            <tr><td>Lone Beacon</td><td>Marketing / Data</td><td>$54M</td><td>21%</td><td>Integrating</td><td><span class="health h-amber"></span></td></tr>
+            <tr><td>LifeLink (Plum Life)</td><td>Insurtech / POS</td><td>$22M</td><td>9%</td><td>Scaling</td><td><span class="health h-amber"></span></td></tr>
+            <tr><td>InsurMark</td><td>IMO (Annuity)</td><td>$140M</td><td>24%</td><td>Complete</td><td><span class="health h-green"></span></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- PORTFOLIO -->
+      <div id="sec-portfolio" class="section" style="display:none">
+        <h2 class="h">Portfolio of Companies</h2>
+        <p class="sub">Acquired divisions on the One Simplicity platform · 2–3 KPIs each · figures illustrative.</p>
+        <div id="portfolio-cards"></div>
+      </div>
+
+      <!-- RADAR -->
+      <div id="sec-radar" class="section" style="display:none">
+        <h2 class="h">Acquisition Radar</h2>
+        <p class="sub">AI-discovered acquisition opportunities, scored by the Flag Engine against leadership's Green / Yellow / Red criteria.</p>
+        <div class="radar-head">
+          <div class="scan">🛰️ Last scan: <b>today, 06:00</b> · 5 agent teams · 1,240 firms screened · 6 surfaced · next scan tonight 02:00</div>
+          <button class="btn sm ghost" onclick="alert('Demo: manually triggers a new discovery run across all agent teams.')">▶ Run discovery now</button>
+        </div>
+        <div class="filters">
+          <select onchange="renderRadar(this.value,fSort.value)" id="fType"><option value="all">All types</option><option>IMO</option><option>BGA</option><option>RIA / Wealth</option><option>FMO</option><option>Marketing / Data</option></select>
+          <select onchange="renderRadar(fType.value,this.value)" id="fSort"><option value="fit">Sort: Fit score</option><option value="rev">Sort: Revenue</option></select>
+        </div>
+        <div id="opplist"></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="sec-settings" class="section" style="display:none">
+        <h2 class="h">Settings</h2>
+        <p class="sub">Demo placeholder.</p>
+        <div class="panel"><h3>Flag Engine criteria</h3><p class="muted" style="margin:0">The Green / Yellow / Red criteria that train the discovery agents are managed here. (Demo — see the Concepts page "Flag Engine" tab for the framework.)</p></div>
+        <div class="panel"><h3>Discovery schedule</h3><p class="muted" style="margin:0">5 agent teams · nightly at 02:00 ET · consolidation agent runs at 05:00 · Radar refreshed 06:00.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OPPORTUNITY MODAL -->
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeOpp()">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+/* ---------- DATA (all illustrative / fake) ---------- */
+var OPPS=[
+ {id:1,name:"Cornerstone Retirement Partners",type:"IMO",focus:"Annuity IMO",hq:"Dallas, TX",fit:89,status:"Actively exploring sale",action:"pursue",
+  rev:"$78M",ebitda:"$14.8M",margin:"19%",producers:"1,900",growth:"+14%",recurring:"71%",
+  founded:1998,employees:"120",
+  overview:"A well-run annuity-focused IMO with deep carrier relationships and a loyal, retained producer base across the Southwest. Founder is nearing retirement and seeking a partner offering both liquidity and continued equity upside.",
+  people:[{n:"Founder / CEO (age 63)",r:"Seeking succession + partial liquidity"},{n:"VP Sales",r:"20-yr tenure, retained"},{n:"Head of Ops",r:"Would migrate to One Simplicity"}],
+  fin:[["2023","$61M","$11.0M","18%"],["2024","$69M","$12.9M","19%"],["2025","$78M","$14.8M","19%"]],
+  green:["Recurring renewal revenue at 71% of total","Producer retention ~94%","Diversified across 8+ carriers (top carrier 24%)","Clean compliance / E&O record","Fills SW geographic gap"],
+  yellow:[{f:"Weak digital marketing / lead-gen",x:"→ Lone Beacon engine drives organic growth"},{f:"Manual quote-to-issue",x:"→ LifeLink digitizes enrollment"},{f:"Founder succession gap",x:"→ equity/partnership rollover retains team"}],
+  red:["None material — minor CRM tech debt only"],
+  deps:{carrier:"Top carrier 24% of revenue (healthy)",producer:"Top producer 6% (low concentration)",platform:"Single legacy CRM (replaceable)"},
+  tp:{carriers:"Athene, Allianz, Nationwide, F&G (+4)",tech:"Legacy CRM (SmartOffice)",marketing:"Outsourced, sub-scale"},
+  arb:{buyMult:"10.5x",buyPrice:"$155M",platMult:"17x",platVal:"$252M",created:"$97M"},
+  sources:"State DOI license records · LinkedIn headcount · carrier appointment data · industry press"},
+
+ {id:2,name:"Beacon Brokerage Group",type:"BGA",focus:"Life BGA",hq:"Columbus, OH",fit:84,status:"Founder succession",action:"pursue",
+  rev:"$44M",ebitda:"$7.5M",margin:"17%",producers:"850",growth:"+8%",recurring:"64%",
+  founded:1991,employees:"70",
+  overview:"Established life-insurance BGA with strong underwriting relationships. Two founding partners want to retire within 24 months; no internal successor. Attractive book but concentrated in a few top producers.",
+  people:[{n:"Co-founder A (age 66)",r:"Retiring <24 mo"},{n:"Co-founder B (age 64)",r:"Retiring <24 mo"},{n:"Top producer",r:"22% of premium — retention risk"}],
+  fin:[["2023","$39M","$6.2M","16%"],["2024","$41M","$6.8M","17%"],["2025","$44M","$7.5M","17%"]],
+  green:["Long-standing carrier underwriting relationships","Recurring revenue 64%","Fills Midwest life-BGA gap"],
+  yellow:[{f:"Sub-scale back office (duplicated overhead)",x:"→ One Simplicity shared ops strips cost"},{f:"No succession plan",x:"→ partnership equity retains key staff"},{f:"Single-product (term/whole life)",x:"→ cross-sell annuity/LTC/wealth"}],
+  red:["Top-producer concentration (22% of premium) — must retain via equity","Aging producer base"],
+  deps:{carrier:"Top carrier 31% (moderate)",producer:"Top producer 22% (elevated)",platform:"Manual agency-management system"},
+  tp:{carriers:"Prudential, Lincoln, John Hancock, Pacific Life",tech:"AMS (manual)",marketing:"Minimal"},
+  arb:{buyMult:"9x",buyPrice:"$68M",platMult:"17x",platVal:"$128M",created:"$60M"},
+  sources:"NAIC producer database · state filings · LinkedIn · local business press"},
+
+ {id:3,name:"Meridian Wealth Advisors",type:"RIA / Wealth",focus:"Fee-based RIA",hq:"Denver, CO",fit:76,status:"Warm — open to conversation",action:"watch",
+  rev:"$31M",ebitda:"$8.4M",margin:"27%",producers:"38 advisors",growth:"+11%",recurring:"92%",
+  founded:2006,employees:"55",
+  overview:"High-margin fee-based RIA with ~$2.1B AUM and sticky recurring advisory fees. Strong brand but heavily dependent on the founder's client relationships; no insurance capability today.",
+  people:[{n:"Founder / CIO",r:"Central to client relationships (key-person risk)"},{n:"Head of Planning",r:"Retained"},{n:"COO",r:"Open to platform migration"}],
+  fin:[["2023","$25M","$6.5M","26%"],["2024","$28M","$7.4M","26%"],["2025","$31M","$8.4M","27%"]],
+  green:["92% recurring advisory fee revenue","27% EBITDA margin (best-in-class)","$2.1B sticky AUM","Adds wealth capability + fee-based reach"],
+  yellow:[{f:"No insurance / annuity capability",x:"→ cross-sell Simplicity's full product shelf into $2.1B base"},{f:"Founder-centric brand",x:"→ team + platform continuity reduces reliance over time"}],
+  red:["Key-person risk concentrated in founder — requires multi-year earnout + retention"],
+  deps:{carrier:"N/A (fee-based)",producer:"Founder ~40% of client relationships (high)",platform:"Modern (Orion/Black Diamond)"},
+  tp:{carriers:"N/A",tech:"Orion, Black Diamond, Schwab custody",marketing:"In-house, modern"},
+  arb:{buyMult:"12x",buyPrice:"$101M",platMult:"17x",platVal:"$143M",created:"$42M"},
+  sources:"SEC Form ADV · IAPD · LinkedIn · firm website"},
+
+ {id:4,name:"Summit Senior Marketing",type:"FMO",focus:"Medicare / Senior FMO",hq:"Tampa, FL",fit:71,status:"Actively exploring sale",action:"watch",
+  rev:"$92M",ebitda:"$13.8M",margin:"15%",producers:"4,200",growth:"+6%",recurring:"58%",
+  founded:2004,employees:"180",
+  overview:"Large Medicare/senior-market FMO with big producer reach, but revenue is heavily concentrated in one carrier and exposed to Medicare regulatory/commission changes.",
+  people:[{n:"CEO",r:"Selling to de-risk regulatory exposure"},{n:"VP Carrier Relations",r:"Retained"}],
+  fin:[["2023","$88M","$14.5M","16%"],["2024","$90M","$14.0M","16%"],["2025","$92M","$13.8M","15%"]],
+  green:["Large producer reach (4,200)","Scale in senior market"],
+  yellow:[{f:"Thin tech / manual enrollment",x:"→ platform + POS tooling"},{f:"Margin compression",x:"→ shared ops + purchasing power"}],
+  red:["Carrier concentration: one carrier = 55% of revenue (existential)","Medicare regulatory / commission-cap exposure","Flat-to-declining margin trend"],
+  deps:{carrier:"One carrier 55% (critical)",producer:"Diversified",platform:"Legacy call-center stack"},
+  tp:{carriers:"UnitedHealthcare (dominant), Humana, Aetna",tech:"Legacy telephony/CRM",marketing:"High-spend DTC"},
+  arb:{buyMult:"8x",buyPrice:"$110M",platMult:"14x",platVal:"$193M",created:"$83M (discounted for concentration)"},
+  sources:"CMS / Medicare marketing data · state filings · LinkedIn · trade press"},
+
+ {id:5,name:"Cardinal Financial Marketing",type:"Marketing / Data",focus:"Advisor marketing + data",hq:"Chicago, IL",fit:80,status:"Cold outreach recommended",action:"pursue",
+  rev:"$27M",ebitda:"$4.3M",margin:"16%",producers:"n/a (agency)",growth:"+19%",recurring:"48%",
+  founded:2014,employees:"90",
+  overview:"Fast-growing advisor-marketing and consumer-data agency with proprietary lead-scoring models — a strategic capability add (Lone Beacon-adjacent) that could be scaled across all of Simplicity's producers.",
+  people:[{n:"Founder / CEO",r:"Growth-minded, not yet for sale (cold outreach)"},{n:"Head of Data Science",r:"Proprietary lead models"}],
+  fin:[["2023","$19M","$2.7M","14%"],["2024","$23M","$3.5M","15%"],["2025","$27M","$4.3M","16%"]],
+  green:["Proprietary data / lead-scoring IP","+19% organic growth","Strategic capability add (scales across 20k producers)"],
+  yellow:[{f:"Thin margins (agency model)",x:"→ scale economics across Simplicity network lifts margin"},{f:"Project-based (48% recurring)",x:"→ convert to retainer across partner agencies"}],
+  red:["Not currently for sale — relationship-building play"],
+  deps:{carrier:"N/A",producer:"Client-concentration moderate",platform:"Modern data stack"},
+  tp:{carriers:"N/A",tech:"Snowflake, Meta/Google Ads APIs, HubSpot",marketing:"Own IP"},
+  arb:{buyMult:"11x",buyPrice:"$47M",platMult:"17x",platVal:"$73M",created:"$26M + network effect"},
+  sources:"LinkedIn · ad-tech partner directories · press · web traffic data"},
+
+ {id:6,name:"Atlas Annuity Solutions",type:"IMO",focus:"Annuity IMO",hq:"Phoenix, AZ",fit:48,status:"Cold — not recommended",action:"pass",
+  rev:"$36M",ebitda:"$3.2M",margin:"9%",producers:"600",growth:"-4%",recurring:"41%",
+  founded:2011,employees:"48",
+  overview:"A sub-scale annuity IMO with declining production, thin margins, a past regulatory action, and a founder with valuation expectations well above market. Included to show a clear PASS.",
+  people:[{n:"Owner",r:"Unrealistic price expectations (~15x)"}],
+  fin:[["2023","$41M","$4.5M","11%"],["2024","$39M","$3.9M","10%"],["2025","$36M","$3.2M","9%"]],
+  green:["Some carrier relationships (limited value)"],
+  yellow:[{f:"Weak marketing",x:"→ fixable, but outweighed by red flags"}],
+  red:["Declining production (-4% YoY, 3-yr downtrend)","Prior state regulatory action (2022)","Thin & falling margin (9%)","Owner price expectation ~15x vs ~8x fair","Low recurring revenue (41%)"],
+  deps:{carrier:"Top carrier 48% (high)",producer:"Top producer 19%",platform:"Outdated"},
+  tp:{carriers:"2 primary carriers",tech:"Outdated CRM",marketing:"None"},
+  arb:{buyMult:"n/a",buyPrice:"—",platMult:"—",platVal:"—",created:"Negative — pass"},
+  sources:"State DOI (incl. enforcement) · filings · LinkedIn"}
+];
+
+var PORTFOLIO=[
+ {n:"Simplicity Wealth",t:"RIA / Wealth",k:[["$185M","Revenue"],["28%","EBITDA margin"],["$12B","AUM"]],st:"Complete",h:"green"},
+ {n:"The Leaders Group",t:"Retail Broker-Dealer",k:[["$96M","Revenue"],["18%","Margin"],["VUL / securities","Capability"]],st:"Complete",h:"green"},
+ {n:"Lone Beacon",t:"Marketing / Data",k:[["$54M","Revenue"],["21%","Margin"],["Lead engine","Role"]],st:"Integrating",h:"amber"},
+ {n:"LifeLink (Plum Life)",t:"Insurtech / POS",k:[["$22M","Revenue"],["9%","Margin"],["Digital life","Role"]],st:"Scaling",h:"amber"},
+ {n:"InsurMark",t:"IMO (Annuity)",k:[["$140M","Revenue"],["24%","Margin"],["Annuity","Focus"]],st:"Complete",h:"green"},
+ {n:"IDA",t:"IMO (Life)",k:[["$88M","Revenue"],["22%","Margin"],["Life platform","Role"]],st:"Complete",h:"green"}
+];
+
+/* ---------- APP LOGIC ---------- */
+function login(){document.getElementById('login').classList.remove('active');document.getElementById('app').classList.add('active');window.scrollTo(0,0);nav('dash');renderPortfolio();renderRadar('all','fit');}
+function nav(sec){
+  document.querySelectorAll('.navitem').forEach(n=>n.classList.toggle('active',n.dataset.sec===sec));
+  ['dash','portfolio','radar','settings'].forEach(s=>document.getElementById('sec-'+s).style.display=(s===sec)?'block':'none');
+  window.scrollTo(0,0);
+}
+function renderPortfolio(){
+  document.getElementById('portfolio-cards').innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">'+
+  PORTFOLIO.map(function(c){return '<div class="panel" style="margin:0"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">'+c.n+'</h3><span class="health h-'+c.h+'"></span></div><div class="muted" style="font-size:12.5px;margin-bottom:12px">'+c.t+' · '+c.st+'</div><div class="minikpis">'+c.k.map(function(k){return '<div class="mk"><div class="v" style="font-size:15px">'+k[0]+'</div><div class="l">'+k[1]+'</div></div>';}).join('')+'</div></div>';}).join('')+'</div>';
+}
+function actionClass(a){return a==='pursue'?'a-pursue':a==='watch'?'a-watch':'a-pass';}
+function actionLabel(a){return a==='pursue'?'Pursue':a==='watch'?'Watch':'Pass';}
+function renderRadar(type,sort){
+  var list=OPPS.filter(function(o){return type==='all'||o.type===type;});
+  list.sort(function(a,b){return sort==='rev'?(parseFloat(b.rev.replace(/[^0-9.]/g,''))-parseFloat(a.rev.replace(/[^0-9.]/g,''))):(b.fit-a.fit);});
+  document.getElementById('opplist').innerHTML=list.map(function(o){
+    return '<div class="opprow" onclick="openOpp('+o.id+')">'+
+      '<div><div class="nm">'+o.name+'</div><div class="meta">'+o.focus+' · '+o.hq+'</div></div>'+
+      '<div><span class="chip '+(o.status.indexOf("Actively")>-1?"g":o.status.indexOf("succession")>-1?"y":o.status.indexOf("Warm")>-1?"y":"n")+'">'+o.status+'</span></div>'+
+      '<div class="meta">Rev '+o.rev+'<br>EBITDA '+o.ebitda+'</div>'+
+      '<div class="dots"><span class="dot" style="color:#1f7a44">●'+o.green.length+'</span><span class="dot" style="color:#8a6d1a">●'+o.yellow.length+'</span><span class="dot" style="color:#b23c38">●'+o.red.length+'</span></div>'+
+      '<div class="fitwrap"><div class="fit" style="color:'+(o.fit>=80?'#1f9d55':o.fit>=65?'#e0a800':'#d9534f')+'">'+o.fit+'</div><div class="fl">Fit</div></div>'+
+      '<div class="action '+actionClass(o.action)+'">'+actionLabel(o.action)+'</div>'+
+    '</div>';
+  }).join('');
+}
+function openOpp(id){
+  var o=OPPS.find(function(x){return x.id===id;});
+  var m=document.getElementById('modal');
+  m.innerHTML=
+  '<div class="modal-head"><div><div class="nm">'+o.name+'</div><div class="meta">'+o.focus+' · '+o.hq+' · founded '+o.founded+' · '+o.employees+' employees</div><div style="margin-top:8px"><span class="chip '+(o.status.indexOf("Actively")>-1?"g":o.status.indexOf("succession")>-1||o.status.indexOf("Warm")>-1?"y":"n")+'">'+o.status+'</span> <span class="action '+actionClass(o.action)+'" style="display:inline-block;margin-left:6px">'+actionLabel(o.action)+'</span></div></div>'+
+    '<div style="display:flex;gap:14px;align-items:flex-start"><div class="fitbig"><div class="v" style="color:'+(o.fit>=80?'#7ee0a6':o.fit>=65?'#f2d98a':'#f3a6a3')+'">'+o.fit+'</div><div class="l">Fit score</div></div><span class="x" onclick="closeOpp()">✕</span></div></div>'+
+  '<div class="modal-body">'+
+    '<div class="mb-kpis">'+
+      kp(o.rev,"LTM Revenue")+kp(o.ebitda,"Adj. EBITDA")+kp(o.margin,"Margin")+kp(o.producers,"Producers")+kp(o.growth,"Growth")+kp(o.recurring,"Recurring")+
+    '</div>'+
+    '<div class="mgrid">'+
+      '<div class="mcard"><h4>Overview &amp; industry</h4><p style="font-size:13px;margin:0">'+o.overview+'</p></div>'+
+      '<div class="mcard"><h4>Key people</h4>'+o.people.map(function(p){return '<div style="font-size:13px;margin-bottom:6px"><b>'+p.n+'</b><br><span class="muted">'+p.r+'</span></div>';}).join('')+'</div>'+
+    '</div>'+
+    '<div class="mgrid">'+
+      '<div class="mcard"><h4>3-year financials (illustrative)</h4><table><tr><th>Year</th><th>Revenue</th><th>EBITDA</th><th>Margin</th></tr>'+o.fin.map(function(f){return '<tr><td>'+f[0]+'</td><td>'+f[1]+'</td><td>'+f[2]+'</td><td>'+f[3]+'</td></tr>';}).join('')+'</table></div>'+
+      '<div class="mcard"><h4>Dependencies &amp; concentration</h4><div style="font-size:13px"><p style="margin:0 0 6px"><b>Carrier:</b> '+o.deps.carrier+'</p><p style="margin:0 0 6px"><b>Producer:</b> '+o.deps.producer+'</p><p style="margin:0 0 10px"><b>Platform:</b> '+o.deps.platform+'</p><h4 style="margin:8px 0 6px">3rd-party relationships</h4><p style="margin:0 0 4px"><b>Carriers:</b> '+o.tp.carriers+'</p><p style="margin:0 0 4px"><b>Tech:</b> '+o.tp.tech+'</p><p style="margin:0"><b>Marketing:</b> '+o.tp.marketing+'</p></div></div>'+
+    '</div>'+
+    '<div class="flags3">'+
+      '<div class="flagcol g"><h4>🟢 Green flags</h4><ul>'+o.green.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div>'+
+      '<div class="flagcol y"><h4>🟡 Yellow — fixable</h4><ul>'+o.yellow.map(function(x){return '<li>'+x.f+' <span class="fix">'+x.x+'</span></li>';}).join('')+'</ul></div>'+
+      '<div class="flagcol r"><h4>🔴 Red flags</h4><ul>'+o.red.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div>'+
+    '</div>'+
+    '<div class="arb"><b style="font-size:14px">Multiple-arbitrage rationale</b><div class="row"><div><div class="v">'+o.arb.buyMult+'</div><div class="l">Est. entry multiple</div></div><div><div class="v">'+o.arb.buyPrice+'</div><div class="l">Est. purchase price</div></div><div><div class="v">'+o.arb.platMult+'</div><div class="l">Platform multiple</div></div><div><div class="v">'+o.arb.created+'</div><div class="l">Value created</div></div></div></div>'+
+    '<p class="src">Discovery sources (public): '+o.sources+'. All figures illustrative / fake.</p>'+
+  '</div>'+
+  '<div class="modal-foot"><button class="btn ghost" onclick="closeOpp()">Close</button><button class="btn ghost" onclick="alert(\'Demo: assigns to Corp Dev team.\')">Assign to Corp Dev</button><button class="btn gold" onclick="alert(\'Demo: requests a warm intro / initial outreach.\')">Request intro</button><button class="btn" onclick="alert(\'Demo: adds to the acquisition pipeline.\')">＋ Add to pipeline</button></div>';
+  document.getElementById('overlay').classList.add('open');
+}
+function kp(v,l){return '<div class="mk"><div class="v">'+v+'</div><div class="l">'+l+'</div></div>';}
+function closeOpp(){document.getElementById('overlay').classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeOpp();});
+</script>
+</body>
+</html>
