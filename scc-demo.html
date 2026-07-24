@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simplicity Client Center — Interactive Demo</title>
+<style>
+  :root{
+    --navy:#0c2740;--navy2:#0f3652;--teal:#1a9d9d;--teal-d:#127a7a;--ink:#1f2d3d;
+    --muted:#5b6b7b;--line:#e2e8ee;--bg:#eef2f5;--card:#fff;--good:#1f9d55;--warn:#e0a800;--danger:#d9534f;--need:#e7f4f4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  button{font-family:inherit;cursor:pointer}
+  .demo-banner{background:#fdf6e0;border-bottom:1px solid #e0a800;color:#7a5b00;font-size:12px;padding:6px 16px;text-align:center;font-weight:600}
+  .demo-banner a{color:#7a5b00}
+  .view{display:none}
+  .view.active{display:block}
+  .btn{background:var(--teal);color:#fff;border:none;border-radius:9px;padding:13px 22px;font-weight:700;font-size:15px}
+  .btn:hover{background:var(--teal-d)}
+  .btn.lg{padding:15px 30px;font-size:16px}
+  .btn.ghost{background:transparent;color:var(--teal-d);border:1px solid var(--teal)}
+  .btn.sm{padding:8px 14px;font-size:13px;border-radius:7px}
+  .center{max-width:520px;margin:0 auto;padding:40px 20px}
+  input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;margin-top:5px}
+  label{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-top:14px}
+  h1,h2,h3{margin:0}
+  /* LANDING */
+  .land-hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:64px 24px 70px;text-align:center}
+  .land-hero .brand{color:#5fd3d3;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:13px;margin-bottom:18px}
+  .land-hero h1{font-size:40px;max-width:760px;margin:0 auto 14px;line-height:1.15}
+  .land-hero p{color:#c4d4e2;max-width:620px;margin:0 auto 26px;font-size:16px}
+  .land-vals{max-width:960px;margin:-36px auto 0;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:760px){.land-vals{grid-template-columns:1fr}.land-hero h1{font-size:30px}}
+  .val{background:#fff;border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:12px;padding:22px;box-shadow:0 6px 18px rgba(16,42,67,.08)}
+  .val h3{font-size:17px;margin-bottom:6px}
+  .val p{color:var(--muted);font-size:13.5px;margin:0}
+  .land-cta{text-align:center;padding:40px 20px 60px}
+  /* CARD / FORM */
+  .cardbox{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;box-shadow:0 4px 14px rgba(16,42,67,.06)}
+  .steps{display:flex;gap:6px;margin-bottom:22px}
+  .steps .s{flex:1;height:6px;border-radius:4px;background:var(--line)}
+  .steps .s.on{background:var(--teal)}
+  .otp{display:flex;gap:10px;justify-content:center;margin:18px 0}
+  .otp input{width:46px;text-align:center;font-size:20px;font-weight:700}
+  .checkrow{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;margin-top:8px;font-size:14px}
+  .checkrow input{width:auto;margin:0}
+  .radios{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+  .radios label{flex:1;min-width:120px;border:1px solid var(--line);border-radius:9px;padding:12px;text-align:center;cursor:pointer;margin:0}
+  .radios input{display:none}
+  .radios input:checked + span{color:var(--teal-d);font-weight:700}
+  .muted{color:var(--muted);font-size:13px}
+  /* PORTAL */
+  #portal{min-height:100vh;background:var(--bg)}
+  .topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 22px}
+  .topbar .logo{font-weight:800;letter-spacing:.02em}
+  .topbar .logo span{color:#5fd3d3}
+  .topbar .who{display:flex;align-items:center;gap:10px;font-size:13px}
+  .avatar{width:34px;height:34px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+  .shell{display:grid;grid-template-columns:220px 1fr 300px;gap:0;align-items:start}
+  @media(max-width:1080px){.shell{grid-template-columns:64px 1fr}.rightbar{display:none}}
+  .side{background:#fff;border-right:1px solid var(--line);min-height:calc(100vh - 58px);padding:16px 10px}
+  .navitem{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:9px;color:var(--ink);font-weight:600;font-size:14px;cursor:pointer;margin-bottom:3px}
+  .navitem:hover{background:#f1f5f7}
+  .navitem.active{background:var(--need);color:var(--teal-d)}
+  .navitem .ic{width:20px;text-align:center}
+  .content{padding:24px 26px;min-height:calc(100vh - 58px)}
+  .rightbar{padding:20px 18px}
+  .agentcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center;position:sticky;top:20px}
+  .agentcard .ava{width:64px;height:64px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;margin:0 auto 10px}
+  .agentcard h4{font-size:16px}
+  .agentcard .role{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+  .agentcard .ci{font-size:12.5px;color:var(--ink);margin:3px 0}
+  .welcome{font-size:22px;font-weight:800;margin-bottom:2px}
+  .sub{color:var(--muted);font-size:13.5px;margin-bottom:18px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+  .panel h3{font-size:15px;margin-bottom:14px;color:var(--navy)}
+  .wellness{display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center}
+  @media(max-width:620px){.wellness{grid-template-columns:1fr}}
+  .ring{position:relative;width:140px;height:140px;margin:0 auto}
+  .ring .lbl{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .lbl b{font-size:30px;color:var(--navy)}
+  .ring .lbl span{font-size:11px;color:var(--good);font-weight:700}
+  .goal{margin-bottom:12px}
+  .goal .t{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+  .bar{height:9px;background:var(--line);border-radius:6px;overflow:hidden}
+  .bar>i{display:block;height:100%;background:var(--teal)}
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:620px){.metrics{grid-template-columns:1fr}}
+  .metric{background:#f7fafb;border:1px solid var(--line);border-radius:10px;padding:14px}
+  .metric .v{font-size:20px;font-weight:800;color:var(--navy)}
+  .metric .l{font-size:12px;color:var(--muted)}
+  .alert{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:9px;padding:13px 15px;margin-bottom:10px}
+  .alert.gap{border-left-color:var(--warn)}
+  .alert.opp{border-left-color:var(--good)}
+  .alert .body{flex:1}
+  .alert .body b{font-size:14px}
+  .alert .body p{margin:3px 0 0;font-size:13px;color:var(--muted)}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;border-radius:20px;padding:2px 9px;text-transform:uppercase;letter-spacing:.05em}
+  .tag.gap{background:#fdf3d6;color:#8a6d1a}
+  .tag.opp{background:#e2f3e8;color:#1f7a44}
+  .tag.edu{background:var(--need);color:var(--teal-d)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .prod{background:#fff;border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:11px;padding:16px}
+  .prod h4{font-size:16px;margin-bottom:4px}
+  .prod .fit{font-size:11.5px;color:var(--teal-d);font-weight:700;margin-bottom:8px}
+  .prod p{font-size:13px;color:var(--muted);margin:0 0 12px}
+  .polrow{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;cursor:pointer}
+  .polrow:hover{background:#f7fafb}
+  .polrow .st{font-size:11px;font-weight:700;border-radius:20px;padding:3px 10px}
+  .st.force{background:#e2f3e8;color:#1f7a44}
+  .st.prog{background:#fdf3d6;color:#8a6d1a}
+  .back{color:var(--teal-d);font-weight:700;font-size:13px;cursor:pointer;display:inline-block;margin-bottom:12px}
+  .enroll-steps{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+  .enroll-steps .es{font-size:12px;font-weight:700;color:var(--muted);padding:6px 12px;border-radius:20px;background:#eef2f5}
+  .enroll-steps .es.on{background:var(--teal);color:#fff}
+  .enroll-steps .es.done{background:#e2f3e8;color:#1f7a44}
+  .sigbox{border:2px dashed var(--teal);border-radius:10px;padding:26px;text-align:center;color:var(--teal-d);font-weight:700;cursor:pointer;background:var(--need)}
+  .done-check{width:70px;height:70px;border-radius:50%;background:var(--good);color:#fff;font-size:38px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  /* AI chat */
+  .chatfab{position:fixed;right:22px;bottom:22px;background:var(--teal);color:#fff;border:none;border-radius:30px;padding:14px 20px;font-weight:700;box-shadow:0 8px 20px rgba(16,42,67,.25);z-index:40}
+  .chatwin{position:fixed;right:22px;bottom:22px;width:340px;max-width:92vw;height:480px;max-height:80vh;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(16,42,67,.28);display:none;flex-direction:column;z-index:41;overflow:hidden}
+  .chatwin.open{display:flex}
+  .chathead{background:var(--navy);color:#fff;padding:13px 16px;display:flex;justify-content:space-between;align-items:center}
+  .chathead b{font-size:14px}
+  .chathead .x{cursor:pointer}
+  .chatbody{flex:1;overflow-y:auto;padding:14px;background:#f7fafb}
+  .msg{max-width:80%;padding:9px 13px;border-radius:12px;font-size:13.5px;margin-bottom:10px}
+  .msg.bot{background:#fff;border:1px solid var(--line)}
+  .msg.me{background:var(--teal);color:#fff;margin-left:auto}
+  .chatin{display:flex;border-top:1px solid var(--line)}
+  .chatin input{border:none;border-radius:0;margin:0}
+  .chatin button{border:none;background:var(--teal);color:#fff;padding:0 16px;font-weight:700}
+  .qbtn{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 11px;font-size:12.5px;margin-bottom:6px;color:var(--teal-d)}
+</style>
+</head>
+<body>
+<div class="demo-banner">🔒 INTERNAL DEMO — Simplicity Client Center (SCC) · fake data, illustrative only · <a href="./">← back to Concepts</a></div>
+
+<!-- ===== LANDING ===== -->
+<section id="v-landing" class="view active">
+  <div class="land-hero">
+    <div class="brand">Simplicity Client Center</div>
+    <h1>Your Financial Future, Centralized.</h1>
+    <p>One secure digital home to view your financial protection and wealth planning — no matter which Simplicity partner you started with.</p>
+    <button class="btn lg" onclick="show('v-register')">Create Your Free Account</button>
+  </div>
+  <div class="land-vals">
+    <div class="val"><h3>See Everything in One Place</h3><p>All your policies and accounts consolidated into a single, clear view.</p></div>
+    <div class="val"><h3>Personalized Education</h3><p>Guidance and content tailored to your goals and financial profile.</p></div>
+    <div class="val"><h3>Connect to Expertise</h3><p>Direct access to your dedicated agent and the full Simplicity network.</p></div>
+  </div>
+  <div class="land-cta"><button class="btn lg" onclick="show('v-register')">Create Your Free Account</button><p class="muted" style="margin-top:12px">Already have an account? <a href="#" onclick="goPortal();return false;" style="color:var(--teal-d);font-weight:700">Log in</a></p></div>
+</section>
+
+<!-- ===== REGISTER ===== -->
+<section id="v-register" class="view">
+  <div class="center">
+    <div class="cardbox">
+      <h2>Create your account</h2>
+      <p class="muted">Step 1 of 2 — your details</p>
+      <label>Full name</label><input id="r-name" value="Jordan Miller">
+      <label>Email</label><input id="r-email" value="jordan.miller@example.com">
+      <label>Mobile phone</label><input id="r-phone" value="(555) 018-2245">
+      <label>Create password</label><input type="password" value="demo1234">
+      <button class="btn lg" style="width:100%;margin-top:20px" onclick="show('v-otp')">Send verification code →</button>
+      <p class="muted" style="text-align:center;margin-top:12px"><a href="#" onclick="show('v-landing');return false;" style="color:var(--muted)">Cancel</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OTP ===== -->
+<section id="v-otp" class="view">
+  <div class="center">
+    <div class="cardbox" style="text-align:center">
+      <h2>Verify it's you</h2>
+      <p class="muted">We sent a 6-digit code to your phone &amp; email (demo — any code works).</p>
+      <div class="otp"><input maxlength="1" value="4"><input maxlength="1" value="9"><input maxlength="1" value="2"><input maxlength="1" value="8"><input maxlength="1" value="1"><input maxlength="1" value="5"></div>
+      <button class="btn lg" style="width:100%" onclick="show('v-profile')">Verify &amp; continue →</button>
+      <p class="muted" style="margin-top:12px">Didn't get it? <a href="#" style="color:var(--teal-d);font-weight:700">Resend</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINANCIAL PROFILE (multi-step) ===== -->
+<section id="v-profile" class="view">
+  <div class="center" style="max-width:600px">
+    <div class="cardbox">
+      <div class="steps"><div class="s on" id="ps1"></div><div class="s" id="ps2"></div><div class="s" id="ps3"></div></div>
+      <h2>My Financial Profile</h2>
+      <p class="muted">This fuels your personalized recommendations. (SIRE engine)</p>
+
+      <div id="pf1">
+        <label>What are your core financial goals? (select all)</label>
+        <div class="checkrow"><input type="checkbox" checked> Retire comfortably</div>
+        <div class="checkrow"><input type="checkbox" checked> Protect my family with life insurance</div>
+        <div class="checkrow"><input type="checkbox"> Grow wealth through investments</div>
+        <div class="checkrow"><input type="checkbox"> Reduce debt or manage taxes</div>
+        <div class="checkrow"><input type="checkbox"> Create a financial legacy / estate planning</div>
+        <button class="btn lg" style="width:100%;margin-top:18px" onclick="pfStep(2)">Continue →</button>
+      </div>
+
+      <div id="pf2" style="display:none">
+        <label>Annual household income</label>
+        <select><option>Under $75k</option><option selected>$75k–$150k</option><option>$150k–$300k</option><option>$300k+</option></select>
+        <label>Estimated net worth</label>
+        <select><option>Under $250k</option><option selected>$250k–$1M</option><option>$1M–$5M</option><option>$5M+</option></select>
+        <label>Existing coverage</label>
+        <div class="checkrow"><input type="checkbox" checked> Life insurance</div>
+        <div class="checkrow"><input type="checkbox"> Disability</div>
+        <div class="checkrow"><input type="checkbox"> Long-term care</div>
+        <button class="btn lg" style="width:100%;margin-top:18px" onclick="pfStep(3)">Continue →</button>
+        <p class="muted" style="text-align:center;margin-top:10px"><a href="#" onclick="pfStep(1);return false;" style="color:var(--muted)">Back</a></p>
+      </div>
+
+      <div id="pf3" style="display:none">
+        <label>Risk tolerance</label>
+        <div class="radios">
+          <label><input type="radio" name="risk"><span>Conservative</span></label>
+          <label><input type="radio" name="risk" checked><span>Moderate</span></label>
+          <label><input type="radio" name="risk"><span>Aggressive</span></label>
+        </div>
+        <label>Date of birth</label><input value="04 / 12 / 1974">
+        <label>Family members</label><input value="Spouse + 2 children">
+        <button class="btn lg" style="width:100%;margin-top:18px" onclick="goPortal()">Finish &amp; enter my portal →</button>
+        <p class="muted" style="text-align:center;margin-top:10px"><a href="#" onclick="pfStep(2);return false;" style="color:var(--muted)">Back</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PORTAL ===== -->
+<section id="v-portal" class="view">
+  <div id="portal">
+    <div class="topbar">
+      <div class="logo">Simplicity <span>Client Center</span></div>
+      <div class="who"><span>Jordan Miller</span><div class="avatar">JM</div></div>
+    </div>
+    <div class="shell">
+      <!-- LEFT NAV -->
+      <nav class="side">
+        <div class="navitem active" data-sec="home" onclick="nav('home')"><span class="ic">🏠</span> Home</div>
+        <div class="navitem" data-sec="enroll" onclick="nav('enroll')"><span class="ic">📝</span> My Enrollments</div>
+        <div class="navitem" data-sec="service" onclick="nav('service')"><span class="ic">🛡️</span> Servicing</div>
+        <div class="navitem" data-sec="solutions" onclick="nav('solutions')"><span class="ic">💡</span> Simplicity Solutions</div>
+        <div class="navitem" data-sec="account" onclick="nav('account')"><span class="ic">⚙️</span> My Account</div>
+      </nav>
+
+      <!-- MAIN CONTENT -->
+      <div class="content">
+        <!-- HOME -->
+        <div id="sec-home" class="section">
+          <div class="welcome">Good afternoon, Jordan 👋</div>
+          <div class="sub">Summit, NJ · 72°F &amp; clear · You're connected with your agent, Alex Rivera.</div>
+
+          <div class="panel">
+            <h3>My Financial Wellness</h3>
+            <div class="wellness">
+              <div>
+                <div class="ring">
+                  <svg width="140" height="140" viewBox="0 0 140 140">
+                    <circle cx="70" cy="70" r="60" fill="none" stroke="#e2e8ee" stroke-width="14"/>
+                    <circle cx="70" cy="70" r="60" fill="none" stroke="#1a9d9d" stroke-width="14" stroke-linecap="round" stroke-dasharray="377" stroke-dashoffset="105" transform="rotate(-90 70 70)"/>
+                  </svg>
+                  <div class="lbl"><b>72</b><span>ON TRACK</span></div>
+                </div>
+                <p class="muted" style="text-align:center;margin:6px 0 0">Protection Score</p>
+              </div>
+              <div>
+                <div class="goal"><div class="t"><span>Retirement readiness</span><span>68%</span></div><div class="bar"><i style="width:68%"></i></div></div>
+                <div class="goal"><div class="t"><span>Family protection</span><span>85%</span></div><div class="bar"><i style="width:85%"></i></div></div>
+                <div class="goal"><div class="t"><span>Emergency liquidity</span><span>40%</span></div><div class="bar"><i style="width:40%;background:#e0a800"></i></div></div>
+                <div class="metrics" style="margin-top:16px">
+                  <div class="metric"><div class="v">$6,200</div><div class="l">Est. monthly retirement income</div></div>
+                  <div class="metric"><div class="v">$750k</div><div class="l">Total protection in force</div></div>
+                  <div class="metric"><div class="v">2</div><div class="l">Active applications</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Action Center — Suggested for you <span class="muted" style="font-weight:400">· powered by SIRE</span></h3>
+            <div class="alert gap">
+              <span class="tag gap">Gap</span>
+              <div class="body"><b>Possible life-insurance gap</b><p>Based on your income and family, you may be under-protected by ~$300k. Review Term Life options.</p></div>
+              <button class="btn sm" onclick="nav('solutions')">Review</button>
+            </div>
+            <div class="alert opp">
+              <span class="tag opp">Opportunity</span>
+              <div class="body"><b>Wealth Management opportunity</b><p>Your profile qualifies for a managed portfolio review with a Simplicity Wealth advisor.</p></div>
+              <button class="btn sm" onclick="nav('solutions')">Explore</button>
+            </div>
+            <div class="alert">
+              <span class="tag edu">Learn</span>
+              <div class="body"><b>Navigating Market Volatility</b><p>A short read matched to your moderate risk profile.</p></div>
+              <button class="btn sm ghost" onclick="alert('Demo: opens an education article.')">Read</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>News &amp; Notes</h3>
+            <p class="muted" style="margin:0 0 6px">• Fed holds rates steady — what it means for annuity buyers like you.</p>
+            <p class="muted" style="margin:0 0 6px">• Simplicity welcomes a new wealth partner in the Northeast.</p>
+            <p class="muted" style="margin:0">• Reminder: your Term Life application is 1 step from completion.</p>
+          </div>
+        </div>
+
+        <!-- ENROLLMENTS -->
+        <div id="sec-enroll" class="section" style="display:none">
+          <div id="enroll-list">
+            <div class="welcome" style="font-size:19px">My Enrollments</div>
+            <div class="sub">Track and complete your in-progress applications — entirely inside the portal.</div>
+            <div class="polrow" onclick="startEnroll()"><div><b>Indexed Universal Life (IUL)</b><div class="muted">Carrier: Everest Life · started 3 days ago</div></div><span class="st prog">1 step left</span></div>
+            <div class="polrow" onclick="startEnroll()"><div><b>Fixed Indexed Annuity</b><div class="muted">Carrier: Meridian Annuity · started today</div></div><span class="st prog">In progress</span></div>
+          </div>
+          <div id="enroll-flow" style="display:none">
+            <span class="back" onclick="backEnrollList()">← My Enrollments</span>
+            <div class="welcome" style="font-size:19px">Complete your application — Indexed Universal Life</div>
+            <div class="sub">One unified flow. Simplicity abstracts away the carrier's system behind the scenes.</div>
+            <div class="enroll-steps"><div class="es done">Details</div><div class="es done">Coverage</div><div class="es done">Health</div><div class="es on" id="estep">Review &amp; e-Sign</div><div class="es">Submitted</div></div>
+            <div id="enroll-review" class="panel">
+              <h3>Review &amp; e-Sign</h3>
+              <div class="metrics"><div class="metric"><div class="v">$500k</div><div class="l">Coverage</div></div><div class="metric"><div class="v">$185/mo</div><div class="l">Premium</div></div><div class="metric"><div class="v">Everest</div><div class="l">Carrier</div></div></div>
+              <p class="muted" style="margin:14px 0 8px">By signing, you agree to the application &amp; disclosures (demo).</p>
+              <div class="sigbox" onclick="finishEnroll()">✍️ Click to e-Sign</div>
+            </div>
+            <div id="enroll-done" class="panel" style="display:none;text-align:center">
+              <div class="done-check">✓</div>
+              <h3 style="text-align:center">Application submitted!</h3>
+              <p class="muted">Your agent Alex Rivera has been notified and it's now in their pipeline. You'll get status updates here and by email.</p>
+              <button class="btn" onclick="backEnrollList()">Back to My Enrollments</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SERVICING -->
+        <div id="sec-service" class="section" style="display:none">
+          <div id="service-list">
+            <div class="welcome" style="font-size:19px">Servicing Center</div>
+            <div class="sub">Every in-force policy across all your Simplicity partners, in one place.</div>
+            <div class="polrow" onclick="policyDetail()"><div><b>Term Life — $500,000</b><div class="muted">Northstar Life · Policy #TL-88213</div></div><span class="st force">In Force</span></div>
+            <div class="polrow" onclick="policyDetail()"><div><b>Fixed Indexed Annuity — $250,000</b><div class="muted">Meridian Annuity · Policy #FIA-40771</div></div><span class="st force">In Force</span></div>
+            <div class="polrow" onclick="policyDetail()"><div><b>Wealth Account — Managed Portfolio</b><div class="muted">Simplicity Wealth · Acct #SW-10254</div></div><span class="st force">Active</span></div>
+          </div>
+          <div id="service-detail" style="display:none">
+            <span class="back" onclick="backServiceList()">← Servicing Center</span>
+            <div class="welcome" style="font-size:19px">Term Life — $500,000</div>
+            <div class="sub">Northstar Life · Policy #TL-88213 · In Force since 2021</div>
+            <div class="metrics"><div class="metric"><div class="v">$500k</div><div class="l">Death benefit</div></div><div class="metric"><div class="v">$42/mo</div><div class="l">Premium</div></div><div class="metric"><div class="v">2041</div><div class="l">Term ends</div></div></div>
+            <div class="panel" style="margin-top:16px">
+              <h3>Documents &amp; actions</h3>
+              <div class="polrow"><div>📄 Policy contract (PDF)</div><button class="btn sm ghost" onclick="alert('Demo: downloads document.')">View</button></div>
+              <div class="polrow"><div>👥 Update beneficiaries</div><button class="btn sm ghost" onclick="alert('Demo: beneficiary change flow.')">Manage</button></div>
+              <div class="polrow"><div>💳 Payment method</div><button class="btn sm ghost" onclick="alert('Demo: billing settings.')">Manage</button></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOLUTIONS -->
+        <div id="sec-solutions" class="section" style="display:none">
+          <div class="welcome" style="font-size:19px">Simplicity Solutions</div>
+          <div class="sub">Filtered to your profile &amp; goals by the SIRE engine — explore and enroll without leaving the portal.</div>
+          <div class="grid2">
+            <div class="prod"><h4>Term Life — top match</h4><div class="fit">✓ Fills your ~$300k protection gap</div><p>Affordable coverage to protect your family's income and mortgage.</p><button class="btn sm" onclick="nav('enroll');startEnroll()">Start Application</button></div>
+            <div class="prod"><h4>Wealth Management</h4><div class="fit">✓ Matches "grow wealth" goal</div><p>A managed portfolio aligned to your moderate risk tolerance.</p><button class="btn sm" onclick="alert('Demo: starts Wealth onboarding.')">Learn &amp; Enroll</button></div>
+            <div class="prod"><h4>Fixed Indexed Annuity</h4><div class="fit">✓ Retirement income</div><p>Guaranteed future income with downside protection.</p><button class="btn sm" onclick="nav('enroll');startEnroll()">Start Application</button></div>
+            <div class="prod"><h4>Asset-Based LTC</h4><div class="fit">✓ Care-cost planning</div><p>Cover long-term care while preserving a legacy benefit.</p><button class="btn sm ghost" onclick="alert('Demo: LTC details.')">Learn More</button></div>
+          </div>
+        </div>
+
+        <!-- ACCOUNT -->
+        <div id="sec-account" class="section" style="display:none">
+          <div class="welcome" style="font-size:19px">My Account</div>
+          <div class="sub">Manage your details and the financial profile behind your recommendations.</div>
+          <div class="grid2">
+            <div class="panel"><h3>Account Details</h3>
+              <label>Name</label><input value="Jordan Miller">
+              <label>Email</label><input value="jordan.miller@example.com">
+              <label>Phone</label><input value="(555) 018-2245">
+              <button class="btn sm" style="margin-top:14px" onclick="alert('Demo: saved.')">Save</button>
+            </div>
+            <div class="panel"><h3>My Financial Profile</h3>
+              <p class="muted" style="margin-top:0">Goals: Retire comfortably, Protect family</p>
+              <p class="muted">Income: $75k–$150k · Net worth: $250k–$1M</p>
+              <p class="muted">Risk tolerance: Moderate</p>
+              <p class="muted">Coverage: Life ✓ · DI ✗ · LTC ✗</p>
+              <button class="btn sm ghost" style="margin-top:8px" onclick="nav('home')">Update profile</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT AGENT SIDEBAR -->
+      <aside class="rightbar">
+        <div class="agentcard">
+          <div class="ava">AR</div>
+          <h4>Alex Rivera</h4>
+          <div class="role">Your Simplicity Agent · Simplicity Wealth</div>
+          <div class="ci">📞 (555) 240-1180</div>
+          <div class="ci">✉️ alex.rivera@simplicity...</div>
+          <button class="btn sm" style="width:100%;margin-top:12px" onclick="alert('Demo: alerts your agent by email + SMS that you want to connect.')">💬 Message Agent</button>
+          <button class="btn sm ghost" style="width:100%;margin-top:8px" onclick="alert('Demo: opens agent calendar to book a meeting.')">📅 Book a meeting</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- AI CHAT -->
+<button class="chatfab" id="fab" onclick="toggleChat()">🤖 Ask the AI Agent</button>
+<div class="chatwin" id="chatwin">
+  <div class="chathead"><b>AI Simplicity Agent</b><span class="x" onclick="toggleChat()">✕</span></div>
+  <div class="chatbody" id="chatbody">
+    <div class="msg bot">Hi Jordan — I'm your 24/7 Simplicity assistant. I know your profile and goals. How can I help?</div>
+    <div id="quicks">
+      <button class="qbtn" onclick="ask('What is my protection gap?')">What is my protection gap?</button>
+      <button class="qbtn" onclick="ask('Explain my annuity options')">Explain my annuity options</button>
+      <button class="qbtn" onclick="ask('Connect me with my agent')">Connect me with my agent</button>
+    </div>
+  </div>
+  <div class="chatin"><input id="chatinput" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">Send</button></div>
+</div>
+
+<script>
+  function show(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);document.getElementById('fab').style.display=(id==='v-portal')?'block':'none';}
+  document.getElementById('fab').style.display='none';
+  function goPortal(){show('v-portal');nav('home');}
+  // profile steps
+  function pfStep(n){for(var i=1;i<=3;i++){document.getElementById('pf'+i).style.display=(i===n)?'block':'none';document.getElementById('ps'+i).className='s'+(i<=n?' on':'');}window.scrollTo(0,0);}
+  // portal nav
+  function nav(sec){
+    document.querySelectorAll('.navitem').forEach(n=>n.classList.toggle('active',n.dataset.sec===sec));
+    ['home','enroll','service','solutions','account'].forEach(s=>{document.getElementById('sec-'+s).style.display=(s===sec)?'block':'none';});
+    backEnrollList();backServiceList();
+    document.querySelector('.content').scrollTo(0,0);window.scrollTo(0,0);
+  }
+  // enrollment
+  function startEnroll(){nav('enroll');document.getElementById('enroll-list').style.display='none';document.getElementById('enroll-flow').style.display='block';document.getElementById('enroll-review').style.display='block';document.getElementById('enroll-done').style.display='none';}
+  function backEnrollList(){var l=document.getElementById('enroll-list'),f=document.getElementById('enroll-flow');if(l&&f){l.style.display='block';f.style.display='none';}}
+  function finishEnroll(){document.getElementById('enroll-review').style.display='none';document.getElementById('enroll-done').style.display='block';document.getElementById('estep').className='es done';}
+  // servicing
+  function policyDetail(){document.getElementById('service-list').style.display='none';document.getElementById('service-detail').style.display='block';}
+  function backServiceList(){var l=document.getElementById('service-list'),d=document.getElementById('service-detail');if(l&&d){l.style.display='block';d.style.display='none';}}
+  // chat
+  function toggleChat(){document.getElementById('chatwin').classList.toggle('open');}
+  var replies={
+    'What is my protection gap?':"Based on your $75k–$150k income and family of 4, a common guideline suggests ~$800k of life coverage. You currently hold $500k in force — a gap of roughly $300k. I can show you Term Life options that fit your budget.",
+    'Explain my annuity options':"For your moderate risk profile and retirement goal, a Fixed Indexed Annuity offers growth tied to an index with downside protection, plus optional guaranteed lifetime income. Want me to estimate income for a $250k premium?",
+    'Connect me with my agent':"I've flagged Alex Rivera (your agent) to reach out — you can also tap 'Message Agent' on the right to alert them by email &amp; SMS right now."
+  };
+  function addMsg(t,cls){var d=document.createElement('div');d.className='msg '+cls;d.innerHTML=t;document.getElementById('chatbody').appendChild(d);var b=document.getElementById('chatbody');b.scrollTop=b.scrollHeight;}
+  function ask(q){var qk=document.getElementById('quicks');if(qk)qk.style.display='none';addMsg(q,'me');setTimeout(function(){addMsg(replies[q]||"Great question — in the full build I'd answer using your profile, goals and products. (Demo response.)",'bot');},400);}
+  function sendChat(){var i=document.getElementById('chatinput');if(!i.value.trim())return;ask(i.value.trim());i.value='';}
+</script>
+</body>
+</html>
