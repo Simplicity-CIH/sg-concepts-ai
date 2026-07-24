@@ -141,6 +141,17 @@
 </style>
 </head>
 <body>
+<div id="pwgate" style="position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#0a2138,#0f3652);display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:20px">
+  <div style="background:#fff;border-radius:16px;padding:36px 32px;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,.45);text-align:center">
+    <div style="font-size:26px">🔒</div>
+    <div style="font-size:22px;font-weight:800;color:#0c2740;margin-top:4px">Simplicity <span style="color:#1a9d9d">Concepts</span></div>
+    <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5b6b7b;font-weight:700;margin-top:3px">Private preview · leadership access</div>
+    <input id="pwin" type="password" placeholder="Access password" style="width:100%;padding:12px;border:1px solid #e2e8ee;border-radius:9px;font-size:15px;margin-top:20px" onkeydown="if(event.key==='Enter')pwck()">
+    <button onclick="pwck()" style="width:100%;margin-top:12px;background:#1a9d9d;color:#fff;border:none;border-radius:9px;padding:12px;font-weight:700;font-size:15px;cursor:pointer">Unlock →</button>
+    <div id="pwerr" style="color:#d9534f;font-size:12.5px;margin-top:10px;display:none">Incorrect password — try again.</div>
+  </div>
+</div>
+<script>function pwck(){if(document.getElementById('pwin').value==='OneSimplicityAI'){try{sessionStorage.setItem('sgai_ok','1')}catch(e){}document.getElementById('pwgate').style.display='none';}else{document.getElementById('pwerr').style.display='block';}}try{if(sessionStorage.getItem('sgai_ok')==='1')document.getElementById('pwgate').style.display='none';}catch(e){}</script>
 <div class="demo-banner">🔒 INTERNAL DEMO — Simplicity Vantage · all financials, companies &amp; opportunities are ILLUSTRATIVE / fake · <a href="./">← back to Concepts</a></div>
 
 <!-- ===== LOGIN ===== -->
