@@ -98,6 +98,8 @@
   .dots .dot{display:flex;align-items:center;gap:3px;font-size:12px;font-weight:700}
   .action{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:20px;padding:4px 11px;text-align:center}
   .a-pursue{background:#e2f3e8;color:#1f7a44}.a-watch{background:#fdf3d6;color:#8a6d1a}.a-pass{background:#fbe3e2;color:#b23c38}
+  @keyframes rdpulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(31,157,85,.5)}50%{opacity:.55;box-shadow:0 0 0 4px rgba(31,157,85,0)}}
+  .realbadge{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.06em;color:#0f7a3f;background:#e2f3e8;border:1px solid #9fd9b4;border-radius:20px;padding:1px 8px;vertical-align:middle;animation:rdpulse 1.6s ease-in-out infinite}
 
   /* MODAL */
   .overlay{position:fixed;inset:0;background:rgba(9,26,42,.55);display:none;align-items:flex-start;justify-content:center;z-index:60;padding:24px;overflow-y:auto}
@@ -254,7 +256,7 @@
         <h2 class="h">Acquisition Radar</h2>
         <p class="sub">AI-discovered acquisition opportunities, scored by the Flag Engine against leadership's Green / Yellow / Red criteria.</p>
         <div class="radar-head">
-          <div class="scan">🛰️ Last scan: <b>today, 06:00</b> · 5 agent teams · 1,240 firms screened · 6 surfaced · next scan tonight 02:00</div>
+          <div class="scan">🛰️ Last scan: <b>today, 06:00</b> · 5 agent teams · 1,240 firms screened · 12 surfaced · <b style="color:#1f9d55">6 real-data fits</b> · next scan tonight 02:00</div>
           <button class="btn sm ghost" onclick="alert('Demo: manually triggers a new discovery run across all agent teams.')">▶ Run discovery now</button>
         </div>
         <div class="filters">
@@ -366,7 +368,79 @@ var OPPS=[
   deps:{carrier:"Top carrier 48% (high)",producer:"Top producer 19%",platform:"Outdated"},
   tp:{carriers:"2 primary carriers",tech:"Outdated CRM",marketing:"None"},
   arb:{buyMult:"n/a",buyPrice:"—",platMult:"—",platVal:"—",created:"Negative — pass"},
-  sources:"State DOI (incl. enforcement) · filings · LinkedIn"}
+  sources:"State DOI (incl. enforcement) · filings · LinkedIn"},
+
+ {id:11,real:true,name:"Gordon Marketing",type:"FMO",focus:"Senior-market FMO / IMO",hq:"Noblesville, IN",fit:82,status:"AI fit · not known to be for sale",action:"pursue",
+  size:"10,000+ agents (48 states)",rev:"Not public",ebitda:"Not public",margin:"Not public",producers:"10,000+ agents",growth:"Not public",recurring:"Not public",
+  founded:"~1980",employees:"n/a",
+  overview:"Independent, family-owned senior-market distributor (Medicare Supplement/Advantage, senior health, life, annuities, LTC). 40+ year history, second-generation management; one of the larger independent Medicare distributors nationally.",
+  people:[{n:"Family-owned (2nd generation)",r:"Individuals masked (PII)"}],
+  green:["Independent, family-owned — no aggregator affiliation (per company site)","40+ year operating history","Large recurring senior-market base (10,000+ agents)","Diversified Medicare + life + annuity + LTC"],
+  yellow:[{f:"Likely senior/Medicare concentration",x:"→ cross-sell life/annuity/wealth via platform"},{f:"Tech/enrollment stack unknown",x:"→ One Simplicity / LifeLink if needed"}],
+  red:["Medicare regulatory/commission exposure — assess at diligence","Independence &amp; willingness to transact unconfirmed"],
+  deps:{carrier:"Not public — assess at diligence",producer:"Broad agent base (public)",platform:"Not public"},
+  tp:{carriers:"Multi-carrier Medicare/senior (public)",tech:"Not public",marketing:"In-house (public site)"},
+  srcLinks:[["Gordon Marketing — history","https://www.gordonmarketing.com/about/our-history/"]],sources:"Company website (public)"},
+
+ {id:12,real:true,name:"The Brokerage Inc.",type:"FMO",focus:"Medicare / health / life FMO-BGA",hq:"Flower Mound, TX",fit:78,status:"AI fit · not known to be for sale",action:"pursue",
+  size:"~50-yr independent",rev:"Not public",ebitda:"Not public",margin:"Not public",producers:"Not public",growth:"Not public",recurring:"Not public",
+  founded:"~1976",employees:"n/a",
+  overview:"Founder/family-owned FMO/IMO/BGA (Flower Mound &amp; Houston, TX) across Medicare (over-65), under-65 health, life and LTC. Publicly states it is committed to staying independent, answering only to partners rather than outside investors.",
+  people:[{n:"Founder / family-owned",r:"Individuals masked (PII)"}],
+  green:["Explicitly independent, family-owned (per company site)","~50-year operating history; agent-first mission","Diversified Medicare + health + life → recurring renewals"],
+  yellow:[{f:"Scale/back-office unknown",x:"→ One Simplicity shared ops"},{f:"Digital enablement unknown",x:"→ platform tooling"}],
+  red:["Medicare regulatory exposure — assess","Stated independence may mean low sale interest"],
+  deps:{carrier:"Not public",producer:"Not public",platform:"Not public"},
+  tp:{carriers:"Multi-carrier (public)",tech:"Not public",marketing:"Not public"},
+  srcLinks:[["The Brokerage Inc. — about","https://thebrokerageinc.com/company/"]],sources:"Company website (public)"},
+
+ {id:13,real:true,name:"Pinney Insurance Center",type:"BGA",focus:"Digital life BGA",hq:"Roseville, CA",fit:79,status:"AI fit · independence unconfirmed",action:"watch",
+  size:"~51–100 employees (directory)",rev:"Not public",ebitda:"Not public",margin:"Not public",producers:"Not public",growth:"Not public",recurring:"Not public",
+  founded:"~1972",employees:"~51–100 (3rd-party)",
+  overview:"Long-standing national life BGA (self-styled 'the original digital BGA', Roseville, CA) with a technology/platform orientation — quoting + agent tools — across life, annuities, disability income, LTC and critical illness. Broad multi-carrier access.",
+  people:[{n:"Private (ownership unconfirmed)",r:"Individuals masked (PII)"}],
+  green:["50+ year national life BGA","Technology/platform orientation — differentiated distribution asset","Broad multi-carrier life/annuity access → recurring commissions"],
+  yellow:[{f:"Back-office/margin unknown",x:"→ platform economics"}],
+  red:["Independence likely-but-unverified — confirm at diligence","Headcount from 3rd-party directory only"],
+  deps:{carrier:"Not public",producer:"Not public",platform:"Own digital/quoting tools (public)"},
+  tp:{carriers:"Multi-carrier life/annuity (public)",tech:"Proprietary quoting/agent platform (public)",marketing:"Not public"},
+  srcLinks:[["Pinney Insurance — life BGA","https://www.pinneyinsurance.com/life-insurance/"]],sources:"Company site + 3rd-party directory (public)"},
+
+ {id:14,real:true,name:"Halbert Hargrove Global Advisors",type:"RIA / Wealth",focus:"HNW fee-based RIA",hq:"Long Beach, CA",fit:84,status:"AI fit · not known to be for sale",action:"pursue",
+  size:"~$3.16B AUM (Form ADV 2023)",rev:"Not public",ebitda:"Not public",margin:"Not public",producers:"~$3.16B AUM",growth:"Not public",recurring:"AUM-based fee",
+  founded:"1933",employees:"~50 (3rd-party)",
+  overview:"Independent fiduciary, fee-based RIA (Long Beach, CA) serving HNW individuals, families, trusts and institutions. 90+ year brand; ~$3.16B AUM per SEC Form ADV (12/31/2023). Principally owned via an internal holding company — not aggregator-held.",
+  people:[{n:"Internal holding-company ownership",r:"Individuals masked (PII)"}],
+  green:["Independent — internally owned, no aggregator","90+ year brand; stable operations (industry awards)","Recurring, primarily AUM-based fee revenue (~$3.16B)","Adds HNW wealth capability + fee-based reach"],
+  yellow:[{f:"No insurance capability (assumed)",x:"→ cross-sell Simplicity product shelf into HNW base"}],
+  red:["Key-person/ownership continuity — confirm at diligence","AUM shifts each ADV filing"],
+  deps:{carrier:"N/A (fee-based)",producer:"AUM-based; concentration not public",platform:"Not public"},
+  tp:{carriers:"N/A",tech:"Not public",marketing:"Not public"},
+  srcLinks:[["SEC Form ADV / IAPD","https://adviserinfo.sec.gov/firm/summary/105515"],["Firm site","https://www.halberthargrove.com/"]],sources:"SEC Form ADV / IAPD + firm site (public)"},
+
+ {id:15,real:true,name:"Truepoint Wealth Counsel",type:"RIA / Wealth",focus:"Fee-only HNW RIA",hq:"Cincinnati, OH",fit:81,status:"AI fit · not known to be for sale",action:"pursue",
+  size:"~$3.2B AUM · employee-owned",rev:"Not public",ebitda:"Not public",margin:"Not public",producers:"~$3.2B AUM",growth:"Not public",recurring:"Fee-only (recurring)",
+  founded:"1990",employees:"n/a",
+  overview:"100% employee-owned, fee-only fiduciary RIA (Cincinnati, OH; NAPFA member) — in-house investment management, planning, tax, estate and risk; also serves foundations/endowments and retirement plans. ~$3.2B AUM (disclosure).",
+  people:[{n:"100% employee-owned",r:"Individuals masked (PII)"}],
+  green:["Independent, 100% employee-owned","Fee-only, fiduciary, recurring revenue (NAPFA)","35-year history; integrated multi-disciplinary platform","Clean bolt-on for wealth + cross-sell"],
+  yellow:[{f:"Employee-ownership may limit sale appetite",x:"→ partnership/equity model aligns"}],
+  red:["Current AUM not primary-confirmed here","Willingness to transact unknown"],
+  deps:{carrier:"N/A (fee-based)",producer:"Not public",platform:"Modern (assumed)"},
+  tp:{carriers:"N/A",tech:"Not public",marketing:"Not public"},
+  srcLinks:[["SEC Form ADV / IAPD","https://adviserinfo.sec.gov/firm/summary/105664"],["NAPFA listing","https://www.napfa.org/firm/1088/5521"]],sources:"SEC Form ADV / IAPD + NAPFA (public)"},
+
+ {id:16,real:true,name:"Indigo Marketing Agency",type:"Marketing / Data",focus:"Advisor marketing / lead-gen",hq:"Beverly Hills, CA",fit:76,status:"AI fit · not known to be for sale",action:"watch",
+  size:"11–50 employees (LinkedIn)",rev:"Not public",ebitda:"Not public",margin:"Not public",producers:"11–50 employees",growth:"Not public",recurring:"Retainer (recurring)",
+  founded:"~2012",employees:"11–50 (LinkedIn)",
+  overview:"Founder/privately-owned done-for-you digital marketing &amp; lead-gen agency exclusively for independent financial advisors (websites, email, social, content, campaigns with monthly reporting). Ownership transferred to a new principal in 2022 — not aggregator-held.",
+  people:[{n:"Privately / founder-owned",r:"Individuals masked (PII)"}],
+  green:["Privately owned — not aggregator-held","Retainer-style recurring revenue (sticky)","Niche in the exact buyer base (independent advisors) — natural bolt-on (Lone Beacon-adjacent)"],
+  yellow:[{f:"Small scale / agency margins",x:"→ scale across Simplicity's producer base"}],
+  red:["Founding year/headcount from LinkedIn only","Willingness to transact unknown"],
+  deps:{carrier:"N/A",producer:"Client concentration not public",platform:"Modern (assumed)"},
+  tp:{carriers:"N/A",tech:"Not public",marketing:"Own service IP (public)"},
+  srcLinks:[["Company site","https://indigomarketingagency.com/"],["LinkedIn","https://www.linkedin.com/company/indigo-marketing-agency"]],sources:"Company site + LinkedIn (public)"}
 ];
 
 var PORTFOLIO=[
@@ -396,9 +470,9 @@ function renderRadar(type,sort){
   list.sort(function(a,b){return sort==='rev'?(parseFloat(b.rev.replace(/[^0-9.]/g,''))-parseFloat(a.rev.replace(/[^0-9.]/g,''))):(b.fit-a.fit);});
   document.getElementById('opplist').innerHTML=list.map(function(o){
     return '<div class="opprow" onclick="openOpp('+o.id+')">'+
-      '<div><div class="nm">'+o.name+'</div><div class="meta">'+o.focus+' · '+o.hq+'</div></div>'+
+      '<div><div class="nm">'+o.name+(o.real?' <span class="realbadge">● REAL DATA</span>':'')+'</div><div class="meta">'+o.focus+' · '+o.hq+'</div></div>'+
       '<div><span class="chip '+(o.status.indexOf("Actively")>-1?"g":o.status.indexOf("succession")>-1?"y":o.status.indexOf("Warm")>-1?"y":"n")+'">'+o.status+'</span></div>'+
-      '<div class="meta">Rev '+o.rev+'<br>EBITDA '+o.ebitda+'</div>'+
+      (o.real?'<div class="meta">'+o.size+'<br><span class="muted">financials n/a</span></div>':'<div class="meta">Rev '+o.rev+'<br>EBITDA '+o.ebitda+'</div>')+
       '<div class="dots"><span class="dot" style="color:#1f7a44">●'+o.green.length+'</span><span class="dot" style="color:#8a6d1a">●'+o.yellow.length+'</span><span class="dot" style="color:#b23c38">●'+o.red.length+'</span></div>'+
       '<div class="fitwrap"><div class="fit" style="color:'+(o.fit>=80?'#1f9d55':o.fit>=65?'#e0a800':'#d9534f')+'">'+o.fit+'</div><div class="fl">Fit</div></div>'+
       '<div class="action '+actionClass(o.action)+'">'+actionLabel(o.action)+'</div>'+
@@ -409,7 +483,7 @@ function openOpp(id){
   var o=OPPS.find(function(x){return x.id===id;});
   var m=document.getElementById('modal');
   m.innerHTML=
-  '<div class="modal-head"><div><div class="nm">'+o.name+'</div><div class="meta">'+o.focus+' · '+o.hq+' · founded '+o.founded+' · '+o.employees+' employees</div><div style="margin-top:8px"><span class="chip '+(o.status.indexOf("Actively")>-1?"g":o.status.indexOf("succession")>-1||o.status.indexOf("Warm")>-1?"y":"n")+'">'+o.status+'</span> <span class="action '+actionClass(o.action)+'" style="display:inline-block;margin-left:6px">'+actionLabel(o.action)+'</span></div></div>'+
+  '<div class="modal-head"><div><div class="nm">'+o.name+(o.real?' <span class="realbadge">● REAL DATA</span>':'')+'</div><div class="meta">'+o.focus+' · '+o.hq+' · founded '+o.founded+(o.real?(' · '+o.size):(' · '+o.employees+' employees'))+'</div><div style="margin-top:8px"><span class="chip '+(o.status.indexOf("Actively")>-1?"g":o.status.indexOf("succession")>-1||o.status.indexOf("Warm")>-1?"y":"n")+'">'+o.status+'</span> <span class="action '+actionClass(o.action)+'" style="display:inline-block;margin-left:6px">'+actionLabel(o.action)+'</span></div></div>'+
     '<div style="display:flex;gap:14px;align-items:flex-start"><div class="fitbig"><div class="v" style="color:'+(o.fit>=80?'#7ee0a6':o.fit>=65?'#f2d98a':'#f3a6a3')+'">'+o.fit+'</div><div class="l">Fit score</div></div><span class="x" onclick="closeOpp()">✕</span></div></div>'+
   '<div class="modal-body">'+
     '<div class="mb-kpis">'+
@@ -420,7 +494,7 @@ function openOpp(id){
       '<div class="mcard"><h4>Key people</h4>'+o.people.map(function(p){return '<div style="font-size:13px;margin-bottom:6px"><b>'+p.n+'</b><br><span class="muted">'+p.r+'</span></div>';}).join('')+'</div>'+
     '</div>'+
     '<div class="mgrid">'+
-      '<div class="mcard"><h4>3-year financials (illustrative)</h4><table><tr><th>Year</th><th>Revenue</th><th>EBITDA</th><th>Margin</th></tr>'+o.fin.map(function(f){return '<tr><td>'+f[0]+'</td><td>'+f[1]+'</td><td>'+f[2]+'</td><td>'+f[3]+'</td></tr>';}).join('')+'</table></div>'+
+      '<div class="mcard"><h4>3-year financials</h4>'+(o.fin?('<table><tr><th>Year</th><th>Revenue</th><th>EBITDA</th><th>Margin</th></tr>'+o.fin.map(function(f){return '<tr><td>'+f[0]+'</td><td>'+f[1]+'</td><td>'+f[2]+'</td><td>'+f[3]+'</td></tr>';}).join('')+'</table>'):'<p style="font-size:13px;margin:0" class="muted">Financials not public — private company; obtained under NDA at diligence.</p>')+'</div>'+
       '<div class="mcard"><h4>Dependencies &amp; concentration</h4><div style="font-size:13px"><p style="margin:0 0 6px"><b>Carrier:</b> '+o.deps.carrier+'</p><p style="margin:0 0 6px"><b>Producer:</b> '+o.deps.producer+'</p><p style="margin:0 0 10px"><b>Platform:</b> '+o.deps.platform+'</p><h4 style="margin:8px 0 6px">3rd-party relationships</h4><p style="margin:0 0 4px"><b>Carriers:</b> '+o.tp.carriers+'</p><p style="margin:0 0 4px"><b>Tech:</b> '+o.tp.tech+'</p><p style="margin:0"><b>Marketing:</b> '+o.tp.marketing+'</p></div></div>'+
     '</div>'+
     '<div class="flags3">'+
@@ -428,8 +502,8 @@ function openOpp(id){
       '<div class="flagcol y"><h4>🟡 Yellow — fixable</h4><ul>'+o.yellow.map(function(x){return '<li>'+x.f+' <span class="fix">'+x.x+'</span></li>';}).join('')+'</ul></div>'+
       '<div class="flagcol r"><h4>🔴 Red flags</h4><ul>'+o.red.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div>'+
     '</div>'+
-    '<div class="arb"><b style="font-size:14px">Multiple-arbitrage rationale</b><div class="row"><div><div class="v">'+o.arb.buyMult+'</div><div class="l">Est. entry multiple</div></div><div><div class="v">'+o.arb.buyPrice+'</div><div class="l">Est. purchase price</div></div><div><div class="v">'+o.arb.platMult+'</div><div class="l">Platform multiple</div></div><div><div class="v">'+o.arb.created+'</div><div class="l">Value created</div></div></div></div>'+
-    '<p class="src">Discovery sources (public): '+o.sources+'. All figures illustrative / fake.</p>'+
+    (o.arb?'<div class="arb"><b style="font-size:14px">Multiple-arbitrage rationale</b><div class="row"><div><div class="v">'+o.arb.buyMult+'</div><div class="l">Est. entry multiple</div></div><div><div class="v">'+o.arb.buyPrice+'</div><div class="l">Est. purchase price</div></div><div><div class="v">'+o.arb.platMult+'</div><div class="l">Platform multiple</div></div><div><div class="v">'+o.arb.created+'</div><div class="l">Value created</div></div></div></div>':'<div class="arb"><b style="font-size:14px">Valuation &amp; arbitrage</b><div style="font-size:13px;margin-top:6px;color:#dbe8f2">Not estimated — real, non-public firm. Purchase price, multiple &amp; value-creation would be modeled under NDA at diligence.</div></div>')+
+    (o.real?'<p class="src"><b style="color:#0f7a3f">● REAL DATA</b> — public, company-level info only; individuals masked (PII). Fit is an AI estimate — not verified and not an indication the firm is for sale. Sources: '+o.srcLinks.map(function(s){return '<a href="'+s[1]+'" target="_blank" rel="noopener">'+s[0]+'</a>';}).join(' · ')+'.</p>':'<p class="src">Discovery sources (public): '+o.sources+'. All figures illustrative / fake.</p>')+
   '</div>'+
   '<div class="modal-foot"><button class="btn ghost" onclick="closeOpp()">Close</button><button class="btn ghost" onclick="alert(\'Demo: assigns to Corp Dev team.\')">Assign to Corp Dev</button><button class="btn gold" onclick="alert(\'Demo: requests a warm intro / initial outreach.\')">Request intro</button><button class="btn" onclick="alert(\'Demo: adds to the acquisition pipeline.\')">＋ Add to pipeline</button></div>';
   document.getElementById('overlay').classList.add('open');
